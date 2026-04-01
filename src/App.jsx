@@ -70,7 +70,7 @@ const EXPOS=[
    photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775057442/sacha_cwm7pl.jpg"},
 ];
 
-const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF08","OEUF09","OEUF10"];
+const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF08","OEUF09","OEUF10","OEUF11","OEUF12"];
 
 const JKEY = import.meta.env.VITE_JSONBIN_KEY || "";
 const EGGS_BIN = import.meta.env.VITE_JSONBIN_EGGS_ID || "";
@@ -118,7 +118,9 @@ export default function App(){
   const [tab,setTab]=useState("djs");
   const [visitor,setVisitor]=useState(null);
   const [expos,setExpos]=useState(EXPOS);
-  const [stamps,setStamps]=useState({});
+  const [reactions,setReactions]=useState(()=>{
+    try{const r=localStorage.getItem("mc2-r");return r?JSON.parse(r):{}}catch(_){return {};}
+  });
   const [myEggs,setMyEggs]=useState([]);
   const [globalEggs,setGlobalEggs]=useState(0);
   const [photos,setPhotos]=useState([]);
@@ -135,7 +137,6 @@ export default function App(){
   useEffect(()=>{
     try{
       const v=localStorage.getItem("mc2-v");if(v)setVisitor(JSON.parse(v));
-      const s=localStorage.getItem("mc2-s");if(s)setStamps(JSON.parse(s));
       const e=localStorage.getItem("mc2-e");if(e)setMyEggs(JSON.parse(e));
       const p=localStorage.getItem("mc2-p");if(p)setPhotos(JSON.parse(p));
       
@@ -178,12 +179,9 @@ if(PHOTOS_BIN){
     setVisitor(v);sv("mc2-v",v);setScreen("main");
   }
 
-  function stamp(expo){
-    const ns={...stamps,[expo.id]:true};
-    setStamps(ns);sv("mc2-s",ns);
-    const c=Object.values(ns).filter(Boolean).length;
-    if(c===1)showToast("Premier tampon !");
-    else if(c===3)showToast("3 stands visites !");
+  function react(expoId, val){
+    const nr={...reactions,[expoId]:val};
+    setReactions(nr);sv("mc2-r",nr);
   }
 
   function findEgg(code){
@@ -201,8 +199,8 @@ if(PHOTOS_BIN){
     });
   } else {
   }
-  if(ne.length===3)showToast("3 œufs ! Va chercher ton prix chez eRReur !");
-  else showToast("Œuf #"+ne.length+" trouve !");
+  if(ne.length===4)showToast("4 œufs ! Va chercher ton prix chez eRReur !");
+  else showToast("Œuf #"+ne.length+" trouvé !");
   return "found";
 }
 
@@ -240,7 +238,7 @@ function addPhoto(url,caption){
   }
 
   const eggCount=myEggs.length;
-  const stampCount=Object.values(stamps).filter(Boolean).length;
+  const reactionCount=Object.values(reactions).filter(Boolean).length;
 
   return(
     <div style={{display:"flex",flexDirection:"column",width:"100%",height:"100vh",background:C.beige,overflow:"hidden",position:"relative"}}>
@@ -269,19 +267,20 @@ function addPhoto(url,caption){
       {screen==="reg"&&<Reg onReg={reg}/>}
       {screen==="main"&&visitor&&(
         <>
-          <Header visitor={visitor} eggCount={eggCount} stampCount={stampCount} isAdmin={isAdmin} onAdmin={()=>setIsAdmin(v=>!v)}/>
+          <Header visitor={visitor} eggCount={eggCount} reactionCount={reactionCount} isAdmin={isAdmin} onAdmin={()=>setIsAdmin(v=>!v)} onAI={()=>setTab("ai")}/>
           <div style={{flex:1,overflow:"hidden",display:"flex",flexDirection:"column"}}>
             {tab==="djs"&&!selDJ&&<DJList djs={djs} onSel={setSelDJ}/>}
             {tab==="djs"&&selDJ&&<DJPage dj={selDJ} onBack={()=>setSelDJ(null)} isAdmin={isAdmin} onUpdate={updateDj}/>}
-            {tab==="expos"&&!selExp&&<ExpoList expos={expos} stamps={stamps} onSel={setSelExp} onStamp={stamp} isAdmin={isAdmin} onUpdate={updateExpos}/>}
-            {tab==="expos"&&selExp&&<ExpoPage exp={selExp} stamped={stamps[selExp.id]} onStamp={()=>{stamp(selExp);setSelExp(null);}} onBack={()=>setSelExp(null)} isAdmin={isAdmin} onUpdate={e=>{updateExpos(expos.map(x=>x.id===e.id?e:x));setSelExp(e);}}/>}
-            {tab==="explore"&&<Explore myEggs={myEggs} eggCount={eggCount} globalEggs={globalEggs} onFind={findEgg} photos={photos} onAddPhoto={addPhoto} visitor={visitor}/>}
+            {tab==="expos"&&!selExp&&<ExpoList expos={expos} reactions={reactions} onReact={react} onSel={setSelExp} isAdmin={isAdmin} onUpdate={updateExpos}/>}
+            {tab==="expos"&&selExp&&<ExpoPage exp={selExp} reaction={reactions[selExp.id]} onReact={v=>{react(selExp.id,v);}} onBack={()=>setSelExp(null)} isAdmin={isAdmin} onUpdate={e=>{updateExpos(expos.map(x=>x.id===e.id?e:x));setSelExp(e);}}/>}
+            {tab==="oeufs"&&<Eggs myEggs={myEggs} eggCount={eggCount} globalEggs={globalEggs} onFind={findEgg}/>}
+            {tab==="mural"&&<Mural photos={photos} onAddPhoto={addPhoto} visitor={visitor}/>}
             {tab==="infos"&&<Infos/>}
             {tab==="novum"&&<Novum/>}
             {tab==="erreur"&&<Erreur/>}
             {tab==="ai"&&<AI visitor={visitor}/>}
           </div>
-          <Nav tab={tab} onNav={t=>{setTab(t);setSelDJ(null);setSelExp(null);}} eggCount={eggCount} stampCount={stampCount}/>
+          <Nav tab={tab} onNav={t=>{setTab(t);setSelDJ(null);setSelExp(null);}} eggCount={eggCount} reactionCount={reactionCount}/>
         </>
       )}
     </div>
@@ -378,7 +377,7 @@ function Reg({onReg}){
   );
 }
 
-function Header({visitor,eggCount,stampCount,isAdmin,onAdmin}){
+function Header({visitor,eggCount,reactionCount,isAdmin,onAdmin,onAI}){
   const [showA,setShowA]=useState(false);
   const [aCode,setACode]=useState("");
   const [aErr,setAErr]=useState(false);
@@ -395,11 +394,17 @@ function Header({visitor,eggCount,stampCount,isAdmin,onAdmin}){
           <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>05.04.26 - {visitor?.name}</div>
         </div>
         <div style={{position:"relative",zIndex:1,display:"flex",gap:6,alignItems:"center"}}>
-          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>oeufs: {eggCount}</div>}
-          {stampCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>stands: {stampCount}</div>}
+          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>🥚 {eggCount}</div>}
+          {reactionCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>👍 {reactionCount}</div>}
           <button onClick={()=>isAdmin?onAdmin():setShowA(v=>!v)}
             style={{background:isAdmin?"rgba(232,98,42,0.3)":"rgba(245,242,237,0.08)",border:isAdmin?"1px solid #E8622A":"1px solid rgba(245,242,237,0.3)",color:C.blanc,...M,fontSize:8,padding:"4px 9px",cursor:"pointer",letterSpacing:"0.1em"}}>
             {isAdmin?"ADMIN OK":"ADMIN"}
+          </button>
+          <button onClick={onAI} style={{width:32,height:32,borderRadius:"50%",border:"1.5px solid rgba(245,242,237,0.3)",background:"rgba(245,242,237,0.08)",cursor:"pointer",overflow:"hidden",padding:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            {LOGO_ROUND
+              ?<img src={LOGO_ROUND} style={{width:"100%",height:"100%",objectFit:"cover"}} alt="AI"/>
+              :<span style={{...D,fontSize:14,color:C.blanc}}>*</span>
+            }
           </button>
         </div>
       </div>
@@ -415,26 +420,26 @@ function Header({visitor,eggCount,stampCount,isAdmin,onAdmin}){
   );
 }
 
-function Nav({tab,onNav,eggCount,stampCount}){
+function Nav({tab,onNav,eggCount,reactionCount}){
   const items=[
     {id:"djs",label:"DJs"},
     {id:"expos",label:"Expos"},
-    {id:"explore",label:"Explorer"},
+    {id:"oeufs",label:"Oeufs"},
+    {id:"mural",label:"Mural"},
     {id:"infos",label:"Infos"},
     {id:"novum",label:"NOVUM"},
     {id:"erreur",label:"eRReur"},
-    {id:"ai",label:"L'Erreur"},
   ];
   return(
     <div style={{display:"flex",background:C.noir,borderTop:"1px solid rgba(245,242,237,0.08)",paddingBottom:14,flexShrink:0}}>
       {items.map(item=>{
         const active=tab===item.id;
-        const notif=item.id==="explore"&&(eggCount>0||stampCount>0);
+        const notif=(item.id==="oeufs"&&eggCount>0)||(item.id==="expos"&&reactionCount>0);
         return(
-          <button key={item.id} onClick={()=>onNav(item.id)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:1,padding:"8px 0 2px",background:"none",border:"none",cursor:"pointer",position:"relative"}}>
-            {notif&&<div style={{position:"absolute",top:5,right:"10%",width:6,height:6,background:C.orange,borderRadius:"50%"}}/>}
-            <span style={{...M,fontSize:7,letterSpacing:"0.04em",color:active?C.blanc:"rgba(245,242,237,0.65)",fontWeight:active?700:400,textTransform:"uppercase"}}>{item.label}</span>
-            {active&&<div style={{width:12,height:2,background:C.gradient,marginTop:2}}/>}
+          <button key={item.id} onClick={()=>onNav(item.id)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"10px 0 3px",background:"none",border:"none",cursor:"pointer",position:"relative"}}>
+            {notif&&<div style={{position:"absolute",top:6,right:"10%",width:6,height:6,background:C.orange,borderRadius:"50%"}}/>}
+            <span style={{...M,fontSize:8,letterSpacing:"0.04em",color:active?C.blanc:"rgba(245,242,237,0.82)",fontWeight:active?700:400,textTransform:"uppercase"}}>{item.label}</span>
+            {active&&<div style={{width:14,height:2,background:C.gradient,marginTop:2}}/>}
           </button>
         );
       })}
@@ -563,10 +568,10 @@ function DJPage({dj,onBack,isAdmin,onUpdate}){
   );
 }
 
-function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
+function ExpoList({expos,reactions,onReact,onSel,isAdmin,onUpdate}){
   const [showF,setShowF]=useState(false);
   const [form,setForm]=useState({name:"",type:"",desc:"",code:"",color:C.orange,photo:null,instagram:"",web:""});
-  const sc=Object.values(stamps).filter(Boolean).length;
+  const rc=Object.values(reactions).filter(v=>v==="up").length;
 
   async function compress(file){
     return new Promise(res=>{
@@ -597,18 +602,18 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
         <div style={{marginBottom:18}}>
           <div style={{...D,fontSize:46,color:C.noir,lineHeight:0.9,marginBottom:6}}>STANDS ET EXPOS</div>
           <div style={{height:2,background:C.gradient,width:"55%"}}/>
-          {sc>0&&<div style={{...M,fontSize:10,color:C.orange,marginTop:7}}>{sc} stand(s) visité(s)</div>}
+          {rc>0&&<div style={{...M,fontSize:10,color:C.orange,marginTop:7}}>👍 {rc} stand(s) aimé(s)</div>}
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px",marginBottom:16}}>
-          <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Ton carnet de visite</div>
+          <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Tes réactions</div>
           <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:6}}>
-            {expos.filter(e=>e.name!=="A confirmer").map(e=>(
-              <div key={e.id} style={{width:34,height:34,background:stamps[e.id]?e.color:"rgba(10,10,10,0.06)",border:"1.5px solid "+(stamps[e.id]?e.color:"rgba(10,10,10,0.09)"),display:"flex",alignItems:"center",justifyContent:"center",color:"white",transition:"all 0.3s"}}>
-                {stamps[e.id]&&"V"}
+            {expos.map(e=>(
+              <div key={e.id} style={{width:34,height:34,background:reactions[e.id]?e.color:"rgba(10,10,10,0.06)",border:"1.5px solid "+(reactions[e.id]?e.color:"rgba(10,10,10,0.09)"),display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,transition:"all 0.3s"}}>
+                {reactions[e.id]==="up"?"👍":reactions[e.id]==="down"?"👎":""}
               </div>
             ))}
           </div>
-          <div style={{...B,fontSize:11,color:C.noir,opacity:0.45}}>Demande le code à chaque exposant pour tamponner</div>
+          <div style={{...B,fontSize:11,color:C.noir,opacity:0.45}}>Donne ton avis sur chaque stand</div>
         </div>
         {isAdmin&&(
           <button onClick={()=>setShowF(v=>!v)} style={{width:"100%",background:"rgba(232,98,42,0.08)",border:"1.5px dashed rgba(232,98,42,0.35)",color:C.orange,...M,fontSize:10,padding:"11px",cursor:"pointer",marginBottom:12,letterSpacing:"0.1em",textTransform:"uppercase"}}>
@@ -655,7 +660,7 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
           {expos.map((e,i)=>(
             <div key={e.id} className="fu" style={{animationDelay:`${i*0.04}s`,background:e.photo?`url(${e.photo}) center/cover`:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"14px 13px",cursor:"pointer",position:"relative",overflow:"hidden",minHeight:90}} onClick={()=>onSel(e)}>
               {e.photo&&<div style={{position:"absolute",inset:0,background:"rgba(245,242,237,0.88)"}}/>}
-              {stamps[e.id]&&<div style={{position:"absolute",top:8,right:8,width:20,height:20,background:e.color,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:"white",zIndex:2}}>V</div>}
+              {reactions[e.id]&&<div style={{position:"absolute",top:8,right:8,fontSize:16,zIndex:2}}>{reactions[e.id]==="up"?"👍":"👎"}</div>}
               <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:e.color}}/>
               <div style={{position:"relative",zIndex:1}}>
                 <div style={{...M,fontSize:8,color:e.color,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:4,marginTop:3}}>{e.type}</div>
@@ -670,10 +675,7 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
   );
 }
 
-function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
-  const [si,setSi]=useState("");
-  const [sErr,setSErr]=useState(false);
-  const [sOk,setSOk]=useState(false);
+function ExpoPage({exp,reaction,onReact,onBack,isAdmin,onUpdate}){
   const [edit,setEdit]=useState(false);
   const [form,setForm]=useState({name:exp.name,type:exp.type,desc:exp.desc,code:exp.code,photo:exp.photo,instagram:exp.instagram||"",web:exp.web||""});
 
@@ -691,11 +693,6 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
         };
       };
     });
-  }
-
-  function tryStamp(){
-    if(si===exp.code){setSOk(true);onStamp();}
-    else{setSErr(true);setTimeout(()=>setSErr(false),1200);}
   }
 
   return(
@@ -728,24 +725,20 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
             )}
           </div>
         )}
-        {!stamped&&!sOk&&(
-          <div style={{background:C.noir,padding:"16px",marginBottom:16}}>
-            <div style={{...D,fontSize:17,color:C.blanc,marginBottom:3}}>TAMPONNER CE STAND</div>
-            <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.5)",marginBottom:12}}>Demande le code à l'exposant</div>
-            <div style={{display:"flex",gap:8}}>
-              <input value={si} onChange={e=>setSi(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")tryStamp();}} placeholder="Code 4 chiffres" maxLength={4}
-                style={{flex:1,background:"rgba(245,242,237,0.08)",border:"1px solid "+(sErr?"#E8622A":"rgba(245,242,237,0.15)"),color:C.blanc,...M,fontSize:18,padding:"9px 11px",textAlign:"center",letterSpacing:"0.2em"}}/>
-              <button onClick={tryStamp} style={{background:C.orange,color:C.blanc,border:"none",...M,fontSize:11,padding:"9px 13px",cursor:"pointer"}}>OK</button>
-            </div>
-            {sErr&&<div style={{...M,fontSize:10,color:C.orange,marginTop:5}}>Code incorrect</div>}
+        {/* Thumbs reaction */}
+        <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:16}}>
+          <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:12}}>Ton avis sur ce stand</div>
+          <div style={{display:"flex",gap:10}}>
+            <button onClick={()=>onReact(reaction==="up"?null:"up")}
+              style={{flex:1,padding:"12px 0",background:reaction==="up"?C.orange:"rgba(10,10,10,0.05)",border:"1.5px solid "+(reaction==="up"?C.orange:"rgba(10,10,10,0.12)"),cursor:"pointer",fontSize:22,borderRadius:2,transition:"all 0.2s"}}>
+              👍
+            </button>
+            <button onClick={()=>onReact(reaction==="down"?null:"down")}
+              style={{flex:1,padding:"12px 0",background:reaction==="down"?"rgba(10,10,10,0.7)":"rgba(10,10,10,0.05)",border:"1.5px solid "+(reaction==="down"?"rgba(10,10,10,0.7)":"rgba(10,10,10,0.12)"),cursor:"pointer",fontSize:22,borderRadius:2,transition:"all 0.2s"}}>
+              👎
+            </button>
           </div>
-        )}
-        {(stamped||sOk)&&(
-          <div className="pop" style={{background:exp.color,padding:"16px",marginBottom:16,textAlign:"center"}}>
-            <div style={{fontSize:32,marginBottom:4}}>V</div>
-            <div style={{...D,fontSize:20,color:C.blanc}}>STAND VISITÉ !</div>
-          </div>
-        )}
+        </div>
         {isAdmin&&(
           <>
             <button onClick={()=>setEdit(v=>!v)} style={{width:"100%",background:"rgba(232,98,42,0.08)",border:"1px dashed rgba(232,98,42,0.4)",color:C.orange,...M,fontSize:10,padding:"9px",cursor:"pointer",marginBottom:10,letterSpacing:"0.1em",textTransform:"uppercase"}}>
@@ -828,7 +821,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
               Des œufs en chocolat sont dispersés dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont spéciaux</strong> -- ils portent un code. Tu peux manger les autres !
             </div>
             <div style={{padding:"10px 12px",background:"rgba(232,98,42,0.25)",border:"1px solid rgba(232,98,42,0.4)"}}>
-              <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 3 ŒUFS SPÉCIAUX</div>
+              <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 4 ŒUFS SPÉCIAUX</div>
               <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.7)"}}>Va au stand eRReurProductions pour ton prix !</div>
             </div>
           </div>
@@ -837,7 +830,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
           <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"14px 16px",textAlign:"center"}}>
             <div style={{...M,fontSize:8,color:C.noir,opacity:0.35,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Mes œufs</div>
             <div style={{...D,fontSize:48,color:C.orange,lineHeight:1}}>{eggCount}</div>
-            <div style={{...M,fontSize:9,color:C.noir,opacity:0.35,marginTop:3}}>sur 10</div>
+            <div style={{...M,fontSize:9,color:C.noir,opacity:0.35,marginTop:3}}>sur 12</div>
             {eggCount>=3&&<div style={{...M,fontSize:9,background:C.orange,color:C.blanc,padding:"3px 8px",marginTop:6,letterSpacing:"0.08em"}}>PRIX DISPONIBLE</div>}
           </div>
           <div style={{background:C.noir,padding:"14px 16px",textAlign:"center",position:"relative",overflow:"hidden"}}>
@@ -852,12 +845,12 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px",marginBottom:16}}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
             <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.1em",textTransform:"uppercase"}}>Ta progression</div>
-            <div style={{...M,fontSize:9,color:eggCount>=3?C.orange:C.noir,opacity:eggCount>=3?1:0.38}}>
-              {eggCount>=3?"Prix disponible !":eggCount>=1?"encore " +(3-eggCount)+" pour le prix":"Commence la chasse !"}
+            <div style={{...M,fontSize:9,color:eggCount>=4?C.orange:C.noir,opacity:eggCount>=3?1:0.38}}>
+              {eggCount>=4?"Prix disponible !":eggCount>=1?"encore " +(4-eggCount)+" pour le prix":"Commence la chasse !"}
             </div>
           </div>
           <div style={{background:"rgba(10,10,10,0.07)",height:6,marginBottom:8}}>
-            <div style={{width:Math.min(100,(eggCount/3)*100)+"%",height:6,background:eggCount>=3?C.orange:C.gradient,transition:"width 0.5s"}}/>
+            <div style={{width:Math.min(100,(eggCount/4)*100)+"%",height:6,background:eggCount>=4?C.orange:C.gradient,transition:"width 0.5s"}}/>
           </div>
           <div style={{display:"flex",gap:6}}>
             {[0,1,2].map(i=>(
@@ -879,7 +872,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
         </div>
         {res&&(
           <div className="pop" style={{background:res==="found"?C.orange:"rgba(10,10,10,0.06)",padding:"14px 16px",marginBottom:14}}>
-            {res==="found"&&<div style={{...D,fontSize:22,color:C.blanc}}>OEUF SPECIAL TROUVE !</div>}
+            {res==="found"&&<div style={{...D,fontSize:22,color:C.blanc}}>ŒUFS SPÉCIAL TROUVÉ !</div>}
             {res==="already"&&<div style={{...D,fontSize:18,color:C.noir}}>Déjà trouvé !</div>}
             {res==="invalid"&&<div style={{...D,fontSize:18,color:C.rose}}>Code invalide</div>}
           </div>
@@ -956,7 +949,7 @@ function Mural({photos,onAddPhoto,visitor}){
               <div style={{aspectRatio:"1",background:preview&&preview!=="placeholder"?`url(${preview}) center/cover`:C.beige,border:"2px dashed "+(preview?"transparent":"rgba(10,10,10,0.2)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
                 {!preview&&<span style={{...M,fontSize:11,color:C.noir,opacity:0.35}}>Prendre ou choisir une photo</span>}
               </div>
-              <input type="file" accept="image/*" capture="environment" style={{display:"none"}} onChange={async e=>{
+              <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{
   const f=e.target.files[0];if(!f)return;
   // preview local imediato
   setUploading(true);
@@ -1026,16 +1019,16 @@ setUploading(false);
 
 function Infos(){
   const rows=[
-    {l:"Adresse",v:"Rue Pere Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
-    {l:"Date",v:"Dimanche 5 avril 2026"},
-    {l:"Horaires",v:"12h00 - 22h00"},
-    {l:"Entree",v:"Paye ce que tu peux\n5€ · 10€ · 15€"},
-    {l:"Nous préférons le cash",v:"Merci de privilégier le paiement en espèces.\nTerminal disponible si nécessaire.",hi:true},
-    {l:"Transports",v:"Tram 7 ou 25 — arrêt Boileau\nMétro — arrêt Montgomery\nBus 36 — arrêt Boileau"},
-    {l:"Parking",v:"Disponible - Entrée via rue Père Eudore Devroye 12"},
-    {l:"Accessibilite",v:"Hall et sanitaires accessibles PMR"},
-    {l:"Bar",v:"Bar ouvert toute la journée\nBoissons et Snacks"},
-    {l:"Chasse aux oeufs",v:"10 oeufs speciaux dans le NOVUM\nTrouve 3 codes pour un prix !"},
+    {e:"📍",l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
+    {e:"📅",l:"Date",v:"Dimanche 5 avril 2026"},
+    {e:"🕛",l:"Horaires",v:"12h00 - 22h00"},
+    {e:"🎟",l:"Entrée",v:"Paye ce que tu veux\n5€ · 10€ · 15€"},
+    {e:"💵",l:"Nous préférons le cash",v:"Merci de privilégier le paiement en espèces.\nTerminal disponible si nécessaire.",hi:true},
+    {e:"🚇",l:"Transports",v:"Tram 7 ou 25 — arrêt Boileau\nMétro — arrêt Montgomery\nBus 36 — arrêt Boileau"},
+    {e:"🚗",l:"Parking",v:"Disponible - Entrée via rue Père Eudore Devroye 12"},
+    {e:"♿",l:"Accessibilité",v:"Hall et sanitaires accessibles PMR"},
+    {e:"🍺",l:"Bar",v:"Bar ouvert toute la journée\nBoissons et Snacks"},
+    {e:"🥚",l:"Chasse aux œufs",v:"12 œufs spéciaux dans le NOVUM\nTrouve 4 codes pour un prix !"},
   ];
   return(
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige,position:"relative"}}>
@@ -1047,7 +1040,7 @@ function Infos(){
         </div>
         {rows.map((r,i)=>(
           <div key={i} className="fu" style={{animationDelay:`${i*0.03}s`,background:r.hi?"rgba(232,98,42,0.08)":C.blanc,border:r.hi?"1.5px solid rgba(232,98,42,0.25)":"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px",marginBottom:8,display:"flex",gap:12,alignItems:"flex-start"}}>
-            <div style={{width:20,height:20,background:r.hi?C.orange:C.noir,borderRadius:2,flexShrink:0,marginTop:2}}/>
+            <div style={{fontSize:18,flexShrink:0,marginTop:1}}>{r.e}</div>
             <div>
               <div style={{...M,fontSize:8,color:r.hi?C.orange:C.noir,opacity:r.hi?1:0.33,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:3,fontWeight:r.hi?700:400}}>{r.l}</div>
               <div style={{...B,fontSize:13,color:C.noir,lineHeight:1.6,whiteSpace:"pre-line",fontWeight:r.hi?600:400}}>{r.v}</div>
@@ -1148,6 +1141,11 @@ function Erreur(){
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige,position:"relative"}}>
       <Grid op={0.06}/>
       <div style={{padding:"22px 20px",position:"relative",zIndex:1}}>
+        {LOGO_FULL&&(
+          <div style={{marginBottom:20,textAlign:"center"}}>
+            <img src={LOGO_FULL} alt="eRReur Productions" style={{maxWidth:"100%",maxHeight:120,objectFit:"contain"}}/>
+          </div>
+        )}
         <div style={{marginBottom:20,position:"relative"}}>
           <div style={{...D,fontSize:46,color:C.noir,lineHeight:0.88,marginBottom:4}}>eRReur Productions</div>
           <Arr size={48} color={C.noir} style={{position:"absolute",top:0,right:0,opacity:0.1}}/>
@@ -1187,7 +1185,7 @@ function Erreur(){
   );
 }
 
-const SYS="Tu es L'Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix éditoriale, précise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Théâtre Art Déco 1932, Rue Père Eudore Devroye 2, 1040 Bruxelles. Chasse aux œufs : 10 œufs spéciaux, 3 = prix chez eRReur. Cash uniquement sur place. Réponds TOUJOURS en français, 2-5 phrases.";
+const SYS="Tu es L'Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix éditoriale, précise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Théâtre Art Déco 1932, Rue Père Eudore Devroye 2, 1040 Bruxelles. Chasse aux œufs : 12 œufs spéciaux, 4 = prix chez eRReur. Cash uniquement sur place. Réponds TOUJOURS en français, 2-5 phrases.";
 
 function AI({visitor}){
   const [msgs,setMsgs]=useState(()=>{
@@ -1247,7 +1245,9 @@ function AI({visitor}){
             <div style={{...D,fontSize:24,color:C.blanc,lineHeight:1}}>L'ERREUR</div>
             <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>Voix éditoriale · eRReurProductions</div>
           </div>
-          <div style={{width:34,height:34,background:C.gradB,display:"flex",alignItems:"center",justifyContent:"center",color:C.blanc,...D,fontSize:20}}>*</div>
+          <div style={{width:34,height:34,borderRadius:"50%",overflow:"hidden",background:C.gradB,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            {LOGO_ROUND?<img src={LOGO_ROUND} style={{width:"100%",height:"100%",objectFit:"cover"}} alt="eRReur"/>:<span style={{...D,fontSize:16,color:C.blanc}}>*</span>}
+          </div>
         </div>
       </div>
       <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>

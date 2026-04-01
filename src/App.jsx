@@ -155,17 +155,22 @@ export default function App(){
 }
     // fetch shared photos from JSONBin and merge with local
 if(PHOTOS_BIN){
-  fetchBin(PHOTOS_BIN).then(d=>{
-    if(!d?.photos?.length)return;
-    setPhotos(current=>{
-      const localIds=new Set(current.map(p=>String(p.id)));
-      const newPhotos=d.photos.filter(p=>!localIds.has(String(p.id)));
-      if(newPhotos.length===0)return current;
-      const merged=[...current,...newPhotos].sort((a,b)=>a.id-b.id);
-      try{localStorage.setItem("mc2-p",JSON.stringify(merged));}catch(_){}
-      return merged;
+  const fetchPhotos=()=>{
+    fetchBin(PHOTOS_BIN).then(d=>{
+      if(!d?.photos?.length)return;
+      setPhotos(current=>{
+        const localIds=new Set(current.map(p=>String(p.id)));
+        const newPhotos=d.photos.filter(p=>!localIds.has(String(p.id)));
+        if(newPhotos.length===0)return current;
+        const merged=[...current,...newPhotos].sort((a,b)=>a.id-b.id);
+        try{localStorage.setItem("mc2-p",JSON.stringify(merged));}catch(_){}
+        return merged;
+      });
     });
-  });
+  };
+  fetchPhotos();
+  const interval=setInterval(fetchPhotos,15000);
+  return()=>clearInterval(interval);
 }
     if(EXPOS_BIN){
       console.log("Fetching expos from JSONBin...");

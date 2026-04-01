@@ -281,7 +281,7 @@ function Splash({done,onEnter}){
           <div style={{display:"flex",gap:8,marginBottom:24}}>
             {["5 EUR","10 EUR","15 EUR"].map(p=><div key={p} style={{...D,fontSize:20,color:C.noir,background:"rgba(10,10,10,0.08)",padding:"4px 12px"}}>{p}</div>)}
           </div>
-          <div style={{...M,fontSize:9,color:C.noir,opacity:0.5,marginBottom:8,wordBreak:"break-all"}}>{debugInfo}</div>
+          <div style={{background:"red",color:"white",fontSize:16,padding:"10px",marginBottom:8,wordBreak:"break-all"}}>{debugInfo}</div>
           <button onClick={onEnter} style={{width:"100%",background:C.noir,color:C.beige,...D,fontSize:30,border:"none",padding:"18px 24px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
             <span>ENTRER</span><Arr size={28} color={C.beige}/>
           </button>

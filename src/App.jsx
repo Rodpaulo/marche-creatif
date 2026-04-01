@@ -70,7 +70,7 @@ const EXPOS=[
    photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775057442/sacha_cwm7pl.jpg"},
 ];
 
-const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF08","OEUF09","OEUF10","OEUF11","OEUF12"];
+const EGGS=["YALLAH","WOUAAH","RITONS","FIESTA","COUCOU","OLALAH","BOUMBA","MAMAMA","YOUPII","BISOUS","ZAPZAP","WIZZUP"];
 
 const JKEY = import.meta.env.VITE_JSONBIN_KEY || "";
 const EGGS_BIN = import.meta.env.VITE_JSONBIN_EGGS_ID || "";
@@ -914,7 +914,6 @@ function Mural({photos,onAddPhoto,visitor}){
   const [fs,setFs]=useState(false);
 
   function save(){
-  if(!caption.trim())return;
   if(!cloudUrl){
     alert("Aguarda o fim do upload da foto antes de publicar.");
     return;
@@ -998,7 +997,8 @@ setUploading(false);
             </label>
             <input value={caption} onChange={e=>setCaption(e.target.value)} placeholder="Décris ce moment..." style={{width:"100%",background:"rgba(10,10,10,0.04)",border:"1px solid rgba(10,10,10,0.12)",padding:"8px 10px",...B,fontSize:13,color:C.noir,marginBottom:10}}/>
             <div style={{display:"flex",gap:8}}>
-              <button onClick={save} disabled={!caption.trim()||!cloudUrl||uploading} style={{flex:1,background:caption.trim()&&cloudUrl&&!uploading?C.orange:"#ccc",color:caption.trim()&&cloudUrl&&!uploading?C.blanc:"#999",border:"none",...D,fontSize:17,padding:"11px",cursor:caption.trim()&&cloudUrl&&!uploading?"pointer":"default"}}>
+              <button onClick={save} disabled={!cloudUrl||uploading} 
+              style={{flex:1,background:cloudUrl&&!uploading?C.orange:"#ccc",color:cloudUrl&&!uploading?C.blanc:"#999",border:"none",...D,fontSize:17,padding:"11px",cursor:caption.trim()&&cloudUrl&&!uploading?"pointer":"default"}}>
   {uploading?"En cours...":!cloudUrl&&preview?"En cours...":"PUBLIER"}
 </button>
               <button onClick={()=>{setAdding(false);setCaption("");setPreview(null);}} style={{background:"rgba(10,10,10,0.08)",color:C.noir,border:"none",...M,fontSize:10,padding:"11px 14px",cursor:"pointer"}}>X</button>
@@ -1030,16 +1030,16 @@ setUploading(false);
 
 function Infos(){
   const rows=[
-    {e:"📍",l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
+    {e:"📍",l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Etterbeek, Bruxelles\nQuartier Montgomery"},
     {e:"📅",l:"Date",v:"Dimanche 5 avril 2026"},
     {e:"🕛",l:"Horaires",v:"12h00 - 22h00"},
-    {e:"🎟",l:"Entrée",v:"Paye ce que tu veux\n5€ · 10€ · 15€"},
+    {e:"🎟",l:"Entrée",v:"Paye ce que tu peux\n5€ · 10€ · 15€"},
     {e:"💵",l:"Nous préférons le cash",v:"Merci de privilégier le paiement en espèces.\nTerminal disponible si nécessaire.",hi:true},
     {e:"🚇",l:"Transports",v:"Tram 7 ou 25 — arrêt Boileau\nMétro — arrêt Montgomery\nBus 36 — arrêt Boileau"},
     {e:"🚗",l:"Parking",v:"Disponible - Entrée via rue Père Eudore Devroye 12"},
     {e:"♿",l:"Accessibilité",v:"Hall et sanitaires accessibles PMR"},
     {e:"🍺",l:"Bar",v:"Bar ouvert toute la journée\nBoissons et Snacks"},
-    {e:"🥚",l:"Chasse aux œufs",v:"12 œufs spéciaux dans le NOVUM\nTrouve 4 codes pour un prix !"},
+    {e:"🥚",l:"Chasse aux œufs",v:"12 œufs spéciaux cachés dans le NOVUM\nTrouve 4 codes pour un prix !"},
   ];
   return(
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige,position:"relative"}}>
@@ -1068,8 +1068,8 @@ function Novum(){
   const disc=[
     {t:"Art Déco — 1932",d:"Inauguré en 1932, le NOVUM porte encore les ornements Art Déco. Leve les yeux en entrant -- les reliefs en stuc des plafonds datent de l'époque.",c:"À observer"},
     {t:"Grande salle — 1100 places",d:"Conçue pour l'opéra classique, son acoustique est exceptionnelle. Ecoute les basses de la salle principale ce soir.",c:"À ressentir"},
-    {t:"Le bar historique",d:"Boiseries d'epoque, lumieres tamisees. Le meilleur endroit pour rencontrer les artistes après leurs sets.",c:"À découvrir"},
-    {t:"Details caches",d:"Regarde les carrelages Art Deco dans les couloirs et les reliefs en stuc. Les bâtisseurs de 1932 avaient de l'ambition.",c:"À chercher"},
+    {t:"Le bar historique",d:"Boiseries d'époque, lumieres tamisées. Le meilleur endroit pour rencontrer les artistes après leurs sets.",c:"À découvrir"},
+    {t:"Details caches",d:"Regarde les carrelages Art Déco dans les couloirs et les reliefs en stuc. Les bâtisseurs de 1932 avaient de l'ambition.",c:"À chercher"},
     {t:"La cour interieure",d:"Peu de visiteurs la trouvent : une cour accessible depuis le couloir latéral. Idéale pour une pause.",c:"À explorer"},
     {t:"Acoustique secrete",d:"Dans certains couloirs, les sons résonnent de façon circulaire. Teste en chuchotant contre le mur du fond du hall.",c:"À expérimenter"},
   ];
@@ -1115,7 +1115,7 @@ function Novum(){
               {l:"Parking",v:"Disponible lors des événements\nEntrée via rue Père Eudore Devroye, 12"},
               {l:"Capacite",v:"Grande salle : 1100 places\nHall festif modulable"},
               {l:"Accès PMR",v:"Hall et sanitaires accessibles"},
-              {l:"Bar",v:"Ouvert 1h avant les evenements\nBoissons et Snacks"},
+              {l:"Bar",v:"Ouvert 1h avant les événements\nBoissons et Snacks"},
             ].map((r,i)=>(
               <div key={i} style={{background:"rgba(245,242,237,0.04)",border:"1px solid rgba(245,242,237,0.06)",padding:"13px 15px",marginBottom:8}}>
                 <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.33)",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:3}}>{r.l}</div>
@@ -1130,7 +1130,7 @@ function Novum(){
         {sec==="histoire"&&(
           <div style={{padding:"18px"}}>
             {[
-              {y:"1932",t:"Fondation",v:"Inaugure en 1932 sous le nom de Théâtre Saint-Michel, le bâtiment Art Déco était destiné aux grandes productions lyriques de la capitale belge."},
+              {y:"1932",t:"Fondation",v:"Inauguré en 1932 sous le nom de Théâtre Saint-Michel, le bâtiment Art Déco était destiné aux grandes productions lyriques de la capitale belge."},
               {y:"100 ans",t:"Un siecle de spectacles",v:"Pendant près d'un siècle, le Théâtre Saint-Michel a traversé les grandes transformations culturelles de Bruxelles, préservant toujours son âme Art Déco."},
               {y:"Aujourd'hui",t:"NOVUM",v:"Rebaptisé NOVUM, le lieu accueille aujourd'hui théâtre, musique, expositions et événements. Ce soir, il accueille le Marché Créatif d'eRReurProductions."},
             ].map((r,i)=>(
@@ -1168,12 +1168,12 @@ function Erreur(){
           <div style={{...D,fontSize:22,color:C.blanc,lineHeight:1.2,position:"relative",zIndex:1}}>WE DON'T ONLY PRODUCE MISTAKES</div>
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:13}}>
-          <div style={{...B,fontSize:14,color:C.noir,lineHeight:1.75,opacity:0.88}}>eRReurProductions est une structure de production indépendante basée à Bruxelles, fondée par Rita Rodrigues. Elle produit courts métrages, documentaires, clips musicaux et événements selon une approche d'auteur.</div>
+          <div style={{...B,fontSize:14,color:C.noir,lineHeight:1.75,opacity:0.88}}>eRReurProductions est une structure de production indépendante basée à Bruxelles, fondée par Rita Rodrigues. Elle produit courts métrages, documentaires, clips musicaux et événements selon une approche inclusive et engagée.</div>
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:13}}>
           <div style={{...M,fontSize:9,color:C.noir,opacity:0.33,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:7}}>Fondatrice</div>
           <div style={{...D,fontSize:26,color:C.noir,marginBottom:7}}>Rita Rodrigues</div>
-          <div style={{...B,fontSize:13,color:C.noir,lineHeight:1.75,opacity:0.82}}>Productrice et réalisatrice basée à Bruxelles. Avant de fonder eRReurProductions, elle a travaillé comme actrice puis comme script supervisor. Son travail est influencé par le cinéma d'auteur.</div>
+          <div style={{...B,fontSize:13,color:C.noir,lineHeight:1.75,opacity:0.82}}>Productrice et réalisatrice basée à Bruxelles. Avant de fonder eRReurProductions, elle a travaillé comme actrice puis comme script supervisor. Son travail est influencé par le cinéma d'auteur, le feminisme et la banalité du quotidien</div>
         </div>
         <div style={{...M,fontSize:9,color:C.noir,opacity:0.33,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:9}}>Formats de production</div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:16}}>

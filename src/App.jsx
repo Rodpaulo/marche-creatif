@@ -136,9 +136,7 @@ if(PHOTOS_BIN){
   });
 }
     if(EXPOS_BIN){
-      console.log("Fetching expos from JSONBin...");
       fetchBin(EXPOS_BIN).then(d=>{
-        console.log("Expos recebidos:", d);
         if(!d?.expos?.length)return;
         setExpos(d.expos);
         try{localStorage.setItem("mc2-x",JSON.stringify(d.expos));}catch(_){}
@@ -200,12 +198,9 @@ function addPhoto(url,caption){
 
   function updateExpos(ne){
   setExpos(ne);sv("mc2-x",ne);
-  console.log("EXPOS_BIN:", EXPOS_BIN);
-  console.log("Saving expos:", ne.length, "items");
   if(EXPOS_BIN){
     putBin(EXPOS_BIN,{expos:ne}).then(()=>console.log("Expos sync OK!")).catch(e=>console.log("Expos sync ERRO:", e));
   } else {
-    console.log("EXPOS_BIN vazio!");
   }
 }
   function updateDj(updated){

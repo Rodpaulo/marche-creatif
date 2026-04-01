@@ -245,9 +245,7 @@ function addPhoto(url,caption){
 }
 
 function Splash({done,onEnter}){
-  const [showInstall,setShowInstall]=useState(()=>{
-    try{return !localStorage.getItem("mc2-install-dismissed");}catch(_){return true;}
-  });
+  const [showInstall,setShowInstall]=useState(true);
   function dismissInstall(){
     try{localStorage.setItem("mc2-install-dismissed","1");}catch(_){}
     setShowInstall(false);

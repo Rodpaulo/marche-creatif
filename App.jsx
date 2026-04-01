@@ -50,6 +50,7 @@ const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF
 const JKEY = import.meta.env.VITE_JSONBIN_KEY || "";
 const EGGS_BIN = import.meta.env.VITE_JSONBIN_EGGS_ID || "";
 const PHOTOS_BIN = import.meta.env.VITE_JSONBIN_PHOTOS_ID || "";
+const EXPOS_BIN = import.meta.env.VITE_JSONBIN_EXPOS_ID || "";
 const ANTHROPIC_KEY = import.meta.env.VITE_ANTHROPIC_KEY || "";
 
 // Substituir pelos URLs reais do Cloudinary
@@ -134,6 +135,15 @@ if(PHOTOS_BIN){
     });
   });
 }
+
+if(EXPOS_BIN){
+  fetchBin(EXPOS_BIN).then(d=>{
+    if(!d?.expos?.length)return;
+    setExpos(d.expos);
+    try{localStorage.setItem("mc2-x",JSON.stringify(d.expos));}catch(_){}
+  });
+}
+
   },[]);
 
   function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(_){}}
@@ -188,7 +198,10 @@ function addPhoto(url,caption){
   }
 }
 
-  function updateExpos(ne){setExpos(ne);sv("mc2-x",ne);}
+  function updateExpos(ne){
+  setExpos(ne);sv("mc2-x",ne);
+  if(EXPOS_BIN)putBin(EXPOS_BIN,{expos:ne});}
+  
   function updateDj(updated){
     const nd=djs.map(x=>x.id===updated.id?updated:x);
     setDjs(nd);sv("mc2-djs",nd);

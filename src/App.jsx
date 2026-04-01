@@ -287,16 +287,22 @@ function Splash({done,onEnter}){
         </div>
       </div>
       {showInstall&&isMobile&&(
-  <div style={{position:"absolute",bottom:0,left:0,right:0,background:C.noir,padding:"14px 18px",zIndex:10,display:"flex",gap:12,alignItems:"flex-start"}}>
-    <div style={{flex:1}}>
-      <div style={{...M,fontSize:10,color:C.blanc,fontWeight:700,letterSpacing:"0.08em",marginBottom:5}}>
-        {isIOS?"Ajouter au menu principal":"Installer sur ton telephone"}
+  <div style={{position:"absolute",inset:0,background:"rgba(10,10,10,0.85)",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 28px"}}>
+    <div style={{background:C.noir,padding:"28px 24px",maxWidth:320,width:"100%",position:"relative"}}>
+      <button onClick={dismissInstall} style={{position:"absolute",top:12,right:14,background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",lineHeight:1}}>X</button>
+      <div style={{...D,fontSize:28,color:C.blanc,marginBottom:6}}>
+        {isIOS?"AJOUTER AU MENU":"INSTALLER"}
       </div>
-      <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.65)",lineHeight:1.5}}>
-        {isIOS?"Touche l'icone de partage puis \"Sur l'ecran d'accueil\"":"Touche les 3 points puis \"Ajouter a l'ecran d'accueil\""}
+      <div style={{height:2,background:C.gradient,width:"50%",marginBottom:16}}/>
+      <div style={{...B,fontSize:14,color:"rgba(245,242,237,0.85)",lineHeight:1.7,marginBottom:20}}>
+        {isIOS
+          ?"Touche l'icone de partage en bas de l'ecran, puis \"Sur l'ecran d'accueil\"."
+          :"Touche les 3 points en haut a droite, puis \"Ajouter a l'ecran d'accueil\"."}
       </div>
+      <button onClick={dismissInstall} style={{width:"100%",background:"rgba(245,242,237,0.08)",border:"1px solid rgba(245,242,237,0.15)",color:C.blanc,...M,fontSize:10,padding:"12px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase"}}>
+        Continuer sans installer
+      </button>
     </div>
-    <button onClick={dismissInstall} style={{background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",flexShrink:0,padding:"0 4px",lineHeight:1}}>X</button>
   </div>
 )}
     </div>

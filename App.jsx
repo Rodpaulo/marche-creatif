@@ -253,6 +253,7 @@ function Splash({done,onEnter}){
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
   const isAndroid=/android/i.test(navigator.userAgent.toLowerCase());
   const isMobile=isIOS||isAndroid;
+  const debugInfo=`iOS:${isIOS} Android:${isAndroid} Mobile:${isMobile} Show:${showInstall}`;
   return(
     <div style={{flex:1,display:"flex",flexDirection:"column",background:C.beige,position:"relative",overflow:"hidden"}}>
       <Grid op={0.07}/>
@@ -280,6 +281,7 @@ function Splash({done,onEnter}){
           <div style={{display:"flex",gap:8,marginBottom:24}}>
             {["5 EUR","10 EUR","15 EUR"].map(p=><div key={p} style={{...D,fontSize:20,color:C.noir,background:"rgba(10,10,10,0.08)",padding:"4px 12px"}}>{p}</div>)}
           </div>
+          <div style={{...M,fontSize:9,color:C.noir,opacity:0.5,marginBottom:8,wordBreak:"break-all"}}>{debugInfo}</div>
           <button onClick={onEnter} style={{width:"100%",background:C.noir,color:C.beige,...D,fontSize:30,border:"none",padding:"18px 24px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
             <span>ENTRER</span><Arr size={28} color={C.beige}/>
           </button>

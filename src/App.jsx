@@ -138,7 +138,7 @@ export default function App(){
       const s=localStorage.getItem("mc2-s");if(s)setStamps(JSON.parse(s));
       const e=localStorage.getItem("mc2-e");if(e)setMyEggs(JSON.parse(e));
       const p=localStorage.getItem("mc2-p");if(p)setPhotos(JSON.parse(p));
-      const x=localStorage.getItem("mc2-x");if(x)setExpos(JSON.parse(x));
+      
     }catch(_){}
     // fetch global egg count from JSONBin
     if(EGGS_BIN){

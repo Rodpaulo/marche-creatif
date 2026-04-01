@@ -199,8 +199,17 @@ function addPhoto(url,caption){
   function updateExpos(ne){
   setExpos(ne);sv("mc2-x",ne);
   if(EXPOS_BIN){
-    putBin(EXPOS_BIN,{expos:ne}).then(()=>console.log("Expos sync OK!")).catch(e=>console.log("Expos sync ERRO:", e));
-  } else {
+    fetchBin(EXPOS_BIN).then(remote=>{
+      if(remote?.expos?.length){
+        const remoteById=Object.fromEntries(remote.expos.map(e=>[e.id,e]));
+        const localById=Object.fromEntries(ne.map(e=>[e.id,e]));
+        const merged=Object.values({...remoteById,...localById});
+        putBin(EXPOS_BIN,{expos:merged});
+        setExpos(merged);sv("mc2-x",merged);
+      } else {
+        putBin(EXPOS_BIN,{expos:ne});
+      }
+    });
   }
 }
   function updateDj(updated){

@@ -829,7 +829,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
           <div style={{position:"relative",zIndex:1}}>
             <div style={{...D,fontSize:32,color:C.blanc,lineHeight:0.9,marginBottom:10}}>CHASSE AUX ŒUFS</div>
             <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.7,marginBottom:12}}>
-              Des œufs en chocolat sont dispersés dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont spéciaux</strong> -- ils portent un code. Tu peux manger les autres !
+              Des œufs en chocolat sont dispersés dans le NOVUM. <strong style={{color:C.blanc}}>12 d'entre eux sont spéciaux</strong> — ils portent un code. Tu peux manger les autres !
             </div>
             <div style={{padding:"10px 12px",background:"rgba(232,98,42,0.25)",border:"1px solid rgba(232,98,42,0.4)"}}>
               <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 4 ŒUFS SPÉCIAUX</div>
@@ -842,7 +842,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
             <div style={{...M,fontSize:8,color:C.noir,opacity:0.35,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Mes œufs</div>
             <div style={{...D,fontSize:48,color:C.orange,lineHeight:1}}>{eggCount}</div>
             <div style={{...M,fontSize:9,color:C.noir,opacity:0.35,marginTop:3}}>sur 12</div>
-            {eggCount>=3&&<div style={{...M,fontSize:9,background:C.orange,color:C.blanc,padding:"3px 8px",marginTop:6,letterSpacing:"0.08em"}}>PRIX DISPONIBLE</div>}
+            {eggCount>=4&&<div style={{...M,fontSize:9,background:C.orange,color:C.blanc,padding:"3px 8px",marginTop:6,letterSpacing:"0.08em"}}>PRIX DISPONIBLE</div>}
           </div>
           <div style={{background:C.noir,padding:"14px 16px",textAlign:"center",position:"relative",overflow:"hidden"}}>
             <div style={{position:"absolute",inset:0,background:C.gradB,opacity:0.15}}/>
@@ -856,7 +856,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px",marginBottom:16}}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
             <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.1em",textTransform:"uppercase"}}>Ta progression</div>
-            <div style={{...M,fontSize:9,color:eggCount>=4?C.orange:C.noir,opacity:eggCount>=3?1:0.38}}>
+            <div style={{...M,fontSize:9,color:eggCount>=4?C.orange:C.noir,opacity:eggCount>=4?1:0.38}}>
               {eggCount>=4?"Prix disponible !":eggCount>=1?"encore " +(4-eggCount)+" pour le prix":"Commence la chasse !"}
             </div>
           </div>

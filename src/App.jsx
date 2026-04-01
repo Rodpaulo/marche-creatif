@@ -148,7 +148,7 @@ if(PHOTOS_BIN){
     setStamps(ns);sv("mc2-s",ns);
     const c=Object.values(ns).filter(Boolean).length;
     if(c===1)showToast("Premier tampon !");
-    else if(c===3)showToast("3 stands visites !");
+    else if(c===3)showToast("3 stands visités !");
   }
 
   function findEgg(code){
@@ -166,8 +166,8 @@ if(PHOTOS_BIN){
     });
   } else {
   }
-  if(ne.length===3)showToast("3 oeufs ! Va chercher ton prix chez eRReur !");
-  else showToast("Oeuf #"+ne.length+" trouve !");
+  if(ne.length===3)showToast("3 œufs ! Va chercher ton prix chez eRReur !");
+  else showToast("Œuf #"+ne.length+" trouvé !");
   return "found";
 }
 
@@ -245,7 +245,9 @@ function addPhoto(url,caption){
 }
 
 function Splash({done,onEnter}){
-  const [showInstall,setShowInstall]=useState(true);
+  const [showInstall,setShowInstall]=useState(()=>{
+    try{return !localStorage.getItem("mc2-install-dismissed");}catch(_){return true;}
+  });
   function dismissInstall(){
     try{localStorage.setItem("mc2-install-dismissed","1");}catch(_){}
     setShowInstall(false);
@@ -253,7 +255,7 @@ function Splash({done,onEnter}){
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
   const isAndroid=/android/i.test(navigator.userAgent.toLowerCase());
   const isMobile=isIOS||isAndroid;
-    return(
+  return(
     <div style={{flex:1,display:"flex",flexDirection:"column",background:C.beige,position:"relative",overflow:"hidden"}}>
       <Grid op={0.07}/>
       <div style={{position:"absolute",top:-100,left:-100,width:380,height:380,background:C.gradB,borderRadius:"50%",filter:"blur(90px)",opacity:0.5,zIndex:0}}/>
@@ -265,7 +267,7 @@ function Splash({done,onEnter}){
         </div>
         <div>
           <div className={done?"fu":""} style={{animationDelay:"0.08s",position:"relative"}}>
-            <div style={{...D,fontSize:82,lineHeight:0.88,color:C.noir}}>MARCHE{"\n"}CREATIF</div>
+            <div style={{...D,fontSize:82,lineHeight:0.88,color:C.noir}}>MARCHÉ{"\n"}CRÉATIF</div>
             <div style={{position:"absolute",top:0,right:0}}><Arr size={72} color={C.noir}/></div>
           </div>
           <div className={done?"fu":""} style={{animationDelay:"0.15s",height:4,background:C.gradient,marginTop:18,width:"65%"}}/>
@@ -276,7 +278,7 @@ function Splash({done,onEnter}){
           </div>
         </div>
         <div className={done?"fu":""} style={{animationDelay:"0.25s"}}>
-          <div style={{...M,fontSize:9,color:C.noir,opacity:0.45,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:8}}>Entree libre - Paye ce que tu peux</div>
+          <div style={{...M,fontSize:9,color:C.noir,opacity:0.45,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:8}}>Entrée libre - Paye ce que tu veux</div>
           <div style={{display:"flex",gap:8,marginBottom:24}}>
             {["5 EUR","10 EUR","15 EUR"].map(p=><div key={p} style={{...D,fontSize:20,color:C.noir,background:"rgba(10,10,10,0.08)",padding:"4px 12px"}}>{p}</div>)}
           </div>
@@ -287,24 +289,24 @@ function Splash({done,onEnter}){
         </div>
       </div>
       {showInstall&&isMobile&&(
-  <div style={{position:"absolute",inset:0,background:"rgba(10,10,10,0.85)",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 28px"}}>
-    <div style={{background:C.noir,padding:"28px 24px",maxWidth:320,width:"100%",position:"relative"}}>
-      <button onClick={dismissInstall} style={{position:"absolute",top:12,right:14,background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",lineHeight:1}}>X</button>
-      <div style={{...D,fontSize:28,color:C.blanc,marginBottom:6}}>
-        {isIOS?"AJOUTER AU MENU":"INSTALLER"}
-      </div>
-      <div style={{height:2,background:C.gradient,width:"50%",marginBottom:16}}/>
-      <div style={{...B,fontSize:14,color:"rgba(245,242,237,0.85)",lineHeight:1.7,marginBottom:20}}>
-        {isIOS
-          ?"Touche l'icone de partage en bas de l'ecran, puis \"Sur l'ecran d'accueil\"."
-          :"Touche les 3 points en haut a droite, puis \"Ajouter a l'ecran d'accueil\"."}
-      </div>
-      <button onClick={dismissInstall} style={{width:"100%",background:"rgba(245,242,237,0.08)",border:"1px solid rgba(245,242,237,0.15)",color:C.blanc,...M,fontSize:10,padding:"12px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase"}}>
-        Continuer sans installer
-      </button>
-    </div>
-  </div>
-)}
+        <div style={{position:"absolute",inset:0,background:"rgba(10,10,10,0.85)",zIndex:10,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 28px"}}>
+          <div style={{background:C.noir,padding:"28px 24px",maxWidth:320,width:"100%",position:"relative"}}>
+            <button onClick={dismissInstall} style={{position:"absolute",top:12,right:14,background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",lineHeight:1}}>X</button>
+            <div style={{...D,fontSize:28,color:C.blanc,marginBottom:6}}>
+              {isIOS?"AJOUTER AU MENU":"INSTALLER"}
+            </div>
+            <div style={{height:2,background:C.gradient,width:"50%",marginBottom:16}}/>
+            <div style={{...B,fontSize:14,color:"rgba(245,242,237,0.85)",lineHeight:1.7,marginBottom:20}}>
+              {isIOS
+                ?"Touche l'icône de partage en bas de l'écran, puis \"Sur l'écran d'accueil\"."
+                :"Touche les 3 points en haut à droite, puis \"Ajouter à l'écran d'accueil\"."}
+            </div>
+            <button onClick={dismissInstall} style={{width:"100%",background:"rgba(245,242,237,0.08)",border:"1px solid rgba(245,242,237,0.15)",color:C.blanc,...M,fontSize:10,padding:"12px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase"}}>
+              Continuer sans installer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -317,11 +319,11 @@ function Reg({onReg}){
       <div style={{position:"absolute",top:-80,left:-80,width:280,height:280,background:C.gradB,borderRadius:"50%",filter:"blur(80px)",opacity:0.4,zIndex:0}}/>
       <div style={{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",padding:"40px 28px",position:"relative",zIndex:1}}>
         <div style={{...D,fontSize:52,color:C.noir,lineHeight:0.9,marginBottom:4}}>BIENVENUE</div>
-        <div style={{...D,fontSize:52,color:C.noir,lineHeight:0.9,marginBottom:4}}>AU MARCHE</div>
+        <div style={{...D,fontSize:52,color:C.noir,lineHeight:0.9,marginBottom:4}}>AU MARCHÉ</div>
         <div style={{height:3,background:C.gradient,width:"50%",marginBottom:28}}/>
         <div style={{...M,fontSize:10,color:C.noir,opacity:0.5,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Comment tu t'appelles ?</div>
         <input value={name} onChange={e=>setName(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&name.trim())onReg(name);}}
-          placeholder="Ton prenom..." maxLength={30}
+          placeholder="Ton prénom..." maxLength={30}
           style={{width:"100%",background:"none",border:"none",borderBottom:"2px solid #0A0A0A",padding:"12px 0",fontSize:24,...D,color:C.noir,marginBottom:32}}/>
         <button onClick={()=>{if(name.trim())onReg(name);}} disabled={!name.trim()}
           style={{width:"100%",background:name.trim()?C.noir:"#ccc",color:name.trim()?C.blanc:"#999",border:"none",...D,fontSize:28,padding:"16px 24px",cursor:name.trim()?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
@@ -345,11 +347,11 @@ function Header({visitor,eggCount,stampCount,isAdmin,onAdmin}){
       <div style={{background:C.noir,padding:"10px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",inset:0,background:C.gradB,opacity:0.12}}/>
         <div style={{position:"relative",zIndex:1}}>
-          <div style={{...D,fontSize:18,color:C.blanc,letterSpacing:"0.05em",lineHeight:1}}>MARCHE CREATIF</div>
+          <div style={{...D,fontSize:18,color:C.blanc,letterSpacing:"0.05em",lineHeight:1}}>MARCHÉ CRÉATIF</div>
           <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>05.04.26 - {visitor?.name}</div>
         </div>
         <div style={{position:"relative",zIndex:1,display:"flex",gap:6,alignItems:"center"}}>
-          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>oeufs: {eggCount}</div>}
+          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>œufs: {eggCount}</div>}
           {stampCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>stands: {stampCount}</div>}
           <button onClick={()=>isAdmin?onAdmin():setShowA(v=>!v)}
             style={{background:isAdmin?"rgba(232,98,42,0.3)":"rgba(245,242,237,0.08)",border:isAdmin?"1px solid #E8622A":"1px solid rgba(245,242,237,0.3)",color:C.blanc,...M,fontSize:8,padding:"4px 9px",cursor:"pointer",letterSpacing:"0.1em"}}>
@@ -377,7 +379,7 @@ function Nav({tab,onNav,eggCount,stampCount}){
     {id:"infos",label:"Infos"},
     {id:"novum",label:"NOVUM"},
     {id:"erreur",label:"eRReur"},
-    {id:"ai",label:"L Erreur"},
+    {id:"ai",label:"L'Erreur"},
   ];
   return(
     <div style={{display:"flex",background:C.noir,borderTop:"1px solid rgba(245,242,237,0.08)",paddingBottom:14,flexShrink:0}}>
@@ -458,7 +460,7 @@ function DJPage({dj,onBack,isAdmin,onUpdate}){
       {/* Header band */}
       <div style={{position:"relative",overflow:"hidden",background:`linear-gradient(160deg,${d.color}40,${d.color}15)`,padding:"14px 16px 14px"}}>
         <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(10,10,10,0.05) 0%,rgba(232,226,217,0.6) 100%)"}}/>
-        <button onClick={onBack} style={{position:"relative",zIndex:1,background:"rgba(10,10,10,0.5)",border:"none",color:C.blanc,...M,fontSize:10,padding:"6px 12px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>{"< PROG"}</button>
+        <button onClick={onBack} style={{position:"relative",zIndex:1,background:"rgba(10,10,10,0.5)",border:"none",color:C.blanc,...M,fontSize:10,padding:"6px 12px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>{"← Prog"}</button>
         <div style={{position:"relative",zIndex:1}}>
           <div style={{...D,fontSize:d.name.length>7?52:68,color:C.noir,lineHeight:0.88,marginBottom:6}}>{d.name}</div>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
@@ -485,7 +487,7 @@ function DJPage({dj,onBack,isAdmin,onUpdate}){
         </div>
         <div style={{background:C.noir,padding:"16px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
           <div>
-            <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:3}}>Sur scene</div>
+            <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:3}}>Sur scène</div>
             <div style={{...D,fontSize:30,color:C.blanc}}>{d.time}</div>
           </div>
           <Arr size={30} color={d.color}/>
@@ -497,7 +499,7 @@ function DJPage({dj,onBack,isAdmin,onUpdate}){
             </button>
             {edit&&(
               <div style={{background:C.blanc,border:"2px solid #E8622A",padding:"16px",marginBottom:12}}>
-                {[["Set","set"],["Horaire","time"],["Genres (- comme separateur)","genre"]].map(([lbl,key])=>(
+                {[["Set","set"],["Horaire","time"],["Genres (séparés par -)","genre"]].map(([lbl,key])=>(
                   <div key={key} style={{marginBottom:10}}>
                     <div style={{...M,fontSize:8,color:C.noir,opacity:0.4,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:3}}>{lbl}</div>
                     <input value={form[key]} onChange={e=>setForm({...form,[key]:e.target.value})} style={{width:"100%",background:"rgba(10,10,10,0.04)",border:"1px solid rgba(10,10,10,0.12)",padding:"7px 9px",...B,fontSize:13,color:C.noir}}/>
@@ -551,7 +553,7 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
         <div style={{marginBottom:18}}>
           <div style={{...D,fontSize:46,color:C.noir,lineHeight:0.9,marginBottom:6}}>STANDS ET EXPOS</div>
           <div style={{height:2,background:C.gradient,width:"55%"}}/>
-          {sc>0&&<div style={{...M,fontSize:10,color:C.orange,marginTop:7}}>{sc} stand(s) visite(s)</div>}
+          {sc>0&&<div style={{...M,fontSize:10,color:C.orange,marginTop:7}}>{sc} stand(s) visité(s)</div>}
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px",marginBottom:16}}>
           <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Ton carnet de visite</div>
@@ -562,7 +564,7 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
               </div>
             ))}
           </div>
-          <div style={{...B,fontSize:11,color:C.noir,opacity:0.45}}>Demande le code a chaque exposant pour tamponner</div>
+          <div style={{...B,fontSize:11,color:C.noir,opacity:0.45}}>Demande le code à chaque exposant pour tamponner</div>
         </div>
         {isAdmin&&(
           <button onClick={()=>setShowF(v=>!v)} style={{width:"100%",background:"rgba(232,98,42,0.08)",border:"1.5px dashed rgba(232,98,42,0.35)",color:C.orange,...M,fontSize:10,padding:"11px",cursor:"pointer",marginBottom:12,letterSpacing:"0.1em",textTransform:"uppercase"}}>
@@ -655,12 +657,12 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
   return(
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige}}>
       <div style={{padding:"18px 20px"}}>
-        <button onClick={onBack} style={{...M,fontSize:9,color:C.noir,opacity:0.4,background:"none",border:"none",cursor:"pointer",marginBottom:14,letterSpacing:"0.1em",textTransform:"uppercase"}}>{"< Exposants"}</button>
+        <button onClick={onBack} style={{...M,fontSize:9,color:C.noir,opacity:0.4,background:"none",border:"none",cursor:"pointer",marginBottom:14,letterSpacing:"0.1em",textTransform:"uppercase"}}>{"← Exposants"}</button>
         <div style={{...M,fontSize:9,color:exp.color,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:5}}>{exp.type}</div>
         <div style={{...D,fontSize:44,color:C.noir,lineHeight:0.9,marginBottom:10}}>{exp.name}</div>
         <div style={{height:3,width:38,background:exp.color,marginBottom:18}}/>
         <div style={{width:"100%",aspectRatio:"1",background:exp.photo?`url(${exp.photo}) center/cover`:`linear-gradient(160deg,${exp.color}30,${exp.color}10)`,border:"1.5px solid rgba(10,10,10,0.07)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:16,position:"relative",overflow:"hidden"}}>
-          {!exp.photo&&<div style={{...M,fontSize:9,color:C.noir,opacity:0.25,letterSpacing:"0.1em"}}>PHOTO A VENIR</div>}
+          {!exp.photo&&<div style={{...M,fontSize:9,color:C.noir,opacity:0.25,letterSpacing:"0.1em"}}>PHOTO À VENIR</div>}
           <Arr size={38} color={exp.color} style={{position:"absolute",bottom:10,right:10,opacity:0.3}}/>
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:16}}>
@@ -685,7 +687,7 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
         {!stamped&&!sOk&&(
           <div style={{background:C.noir,padding:"16px",marginBottom:16}}>
             <div style={{...D,fontSize:17,color:C.blanc,marginBottom:3}}>TAMPONNER CE STAND</div>
-            <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.5)",marginBottom:12}}>Demande le code a l'exposant</div>
+            <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.5)",marginBottom:12}}>Demande le code à l'exposant</div>
             <div style={{display:"flex",gap:8}}>
               <input value={si} onChange={e=>setSi(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")tryStamp();}} placeholder="Code 4 chiffres" maxLength={4}
                 style={{flex:1,background:"rgba(245,242,237,0.08)",border:"1px solid "+(sErr?"#E8622A":"rgba(245,242,237,0.15)"),color:C.blanc,...M,fontSize:18,padding:"9px 11px",textAlign:"center",letterSpacing:"0.2em"}}/>
@@ -697,7 +699,7 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
         {(stamped||sOk)&&(
           <div className="pop" style={{background:exp.color,padding:"16px",marginBottom:16,textAlign:"center"}}>
             <div style={{fontSize:32,marginBottom:4}}>V</div>
-            <div style={{...D,fontSize:20,color:C.blanc}}>STAND VISITE !</div>
+            <div style={{...D,fontSize:20,color:C.blanc}}>STAND VISITÉ !</div>
           </div>
         )}
         {isAdmin&&(
@@ -744,7 +746,7 @@ function Explore({myEggs,eggCount,globalEggs,onFind,photos,onAddPhoto,visitor}){
   return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:C.beige}}>
       <div style={{display:"flex",background:C.blanc,borderBottom:"1.5px solid rgba(10,10,10,0.08)",flexShrink:0}}>
-        {[["eggs","Chasse aux oeufs"],["mural","Mural photo"]].map(([id,lb])=>(
+        {[["eggs","Chasse aux œufs"],["mural","Mural photo"]].map(([id,lb])=>(
           <button key={id} onClick={()=>setSec(id)} style={{flex:1,padding:"12px 0",background:"none",border:"none",cursor:"pointer",borderBottom:sec===id?"3px solid #E8622A":"3px solid transparent"}}>
             <span style={{...M,fontSize:10,color:sec===id?C.orange:C.noir,opacity:sec===id?1:0.4,fontWeight:sec===id?700:400,letterSpacing:"0.08em",textTransform:"uppercase"}}>{lb}</span>
           </button>
@@ -777,19 +779,19 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
         <div style={{background:C.noir,padding:"18px",marginBottom:16,position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",inset:0,background:C.gradB,opacity:0.12}}/>
           <div style={{position:"relative",zIndex:1}}>
-            <div style={{...D,fontSize:32,color:C.blanc,lineHeight:0.9,marginBottom:10}}>CHASSE AUX OEUFS</div>
+            <div style={{...D,fontSize:32,color:C.blanc,lineHeight:0.9,marginBottom:10}}>CHASSE AUX ŒUFS</div>
             <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.7,marginBottom:12}}>
-              Des oeufs en chocolat sont disperses dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont speciaux</strong> -- ils portent un code. Tu peux manger les autres !
+              Des œufs en chocolat sont disperses dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont spéciaux</strong> -- ils portent un code. Tu peux manger les autres !
             </div>
             <div style={{padding:"10px 12px",background:"rgba(232,98,42,0.25)",border:"1px solid rgba(232,98,42,0.4)"}}>
-              <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 3 OEUFS SPECIAUX</div>
-              <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.7)"}}>Va au stand eRReurProductions pour ton prix !</div>
+              <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 3 ŒUFS SPÉCIAUX</div>
+              <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.7)"}}>Va au stand eRReurProductions pour ton prix ! !</div>
             </div>
           </div>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
           <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"14px 16px",textAlign:"center"}}>
-            <div style={{...M,fontSize:8,color:C.noir,opacity:0.35,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Mes oeufs</div>
+            <div style={{...M,fontSize:8,color:C.noir,opacity:0.35,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Mes œufs</div>
             <div style={{...D,fontSize:48,color:C.orange,lineHeight:1}}>{eggCount}</div>
             <div style={{...M,fontSize:9,color:C.noir,opacity:0.35,marginTop:3}}>sur 10</div>
             {eggCount>=3&&<div style={{...M,fontSize:9,background:C.orange,color:C.blanc,padding:"3px 8px",marginTop:6,letterSpacing:"0.08em"}}>PRIX DISPONIBLE</div>}
@@ -797,7 +799,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
           <div style={{background:C.noir,padding:"14px 16px",textAlign:"center",position:"relative",overflow:"hidden"}}>
             <div style={{position:"absolute",inset:0,background:C.gradB,opacity:0.15}}/>
             <div style={{position:"relative",zIndex:1}}>
-              <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.4)",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Total trouves</div>
+              <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.4)",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Total trouvés</div>
               <div style={{...D,fontSize:48,color:C.blanc,lineHeight:1}}>{globalEggs}</div>
               <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.35)",marginTop:3}}>par tous</div>
             </div>
@@ -834,13 +836,13 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
         {res&&(
           <div className="pop" style={{background:res==="found"?C.orange:"rgba(10,10,10,0.06)",padding:"14px 16px",marginBottom:14}}>
             {res==="found"&&<div style={{...D,fontSize:22,color:C.blanc}}>OEUF SPECIAL TROUVE !</div>}
-            {res==="already"&&<div style={{...D,fontSize:18,color:C.noir}}>Deja trouve !</div>}
+            {res==="already"&&<div style={{...D,fontSize:18,color:C.noir}}>Déjà trouvé !</div>}
             {res==="invalid"&&<div style={{...D,fontSize:18,color:C.rose}}>Code invalide</div>}
           </div>
         )}
         {eggCount>0&&(
           <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 15px"}}>
-            <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8}}>Tes oeufs trouves</div>
+            <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:8}}>Tes œufs trouvés</div>
             <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {myEggs.map((c,i)=>(
                 <div key={c} style={{background:C.orange,padding:"4px 10px"}}>
@@ -895,10 +897,10 @@ function Mural({photos,onAddPhoto,visitor}){
       <div style={{position:"relative",zIndex:1}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:5}}>
           <div style={{...D,fontSize:34,color:C.noir,lineHeight:0.9}}>MURAL COLLECTIF</div>
-          <button onClick={()=>setFs(true)} style={{...M,fontSize:8,background:C.noir,color:C.blanc,border:"none",padding:"6px 11px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase"}}>PLEIN ECRAN</button>
+          <button onClick={()=>setFs(true)} style={{...M,fontSize:8,background:C.noir,color:C.blanc,border:"none",padding:"6px 11px",cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase"}}>PLEIN ÉCRAN</button>
         </div>
         <div style={{height:2,background:C.gradient,width:"55%",marginBottom:14}}/>
-        <div style={{...B,fontSize:12,color:C.noir,opacity:0.45,marginBottom:14}}>Partage ton regard sur le Marche Creatif.</div>
+        <div style={{...B,fontSize:12,color:C.noir,opacity:0.45,marginBottom:14}}>Partage ton regard sur le Marché Créatif.</div>
         {!adding?(
           <button onClick={()=>setAdding(true)} style={{width:"100%",background:C.noir,color:C.blanc,border:"none",...D,fontSize:20,padding:"13px 17px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
             <span>AJOUTER UNE PHOTO</span>
@@ -946,10 +948,10 @@ setUploading(false);
   }catch(err){console.log("Cloudinary erro:",err);}
 }}/>
             </label>
-            <input value={caption} onChange={e=>setCaption(e.target.value)} placeholder="Decris ce moment..." style={{width:"100%",background:"rgba(10,10,10,0.04)",border:"1px solid rgba(10,10,10,0.12)",padding:"8px 10px",...B,fontSize:13,color:C.noir,marginBottom:10}}/>
+            <input value={caption} onChange={e=>setCaption(e.target.value)} placeholder="Décris ce moment..." style={{width:"100%",background:"rgba(10,10,10,0.04)",border:"1px solid rgba(10,10,10,0.12)",padding:"8px 10px",...B,fontSize:13,color:C.noir,marginBottom:10}}/>
             <div style={{display:"flex",gap:8}}>
               <button onClick={save} disabled={!caption.trim()||!cloudUrl||uploading} style={{flex:1,background:caption.trim()&&cloudUrl&&!uploading?C.orange:"#ccc",color:caption.trim()&&cloudUrl&&!uploading?C.blanc:"#999",border:"none",...D,fontSize:17,padding:"11px",cursor:caption.trim()&&cloudUrl&&!uploading?"pointer":"default"}}>
-  {uploading?"A carregar...":!cloudUrl&&preview?"A processar...":"PUBLIER"}
+  {uploading?"En cours...":!cloudUrl&&preview?"En cours...":"PUBLIER"}
 </button>
               <button onClick={()=>{setAdding(false);setCaption("");setPreview(null);}} style={{background:"rgba(10,10,10,0.08)",color:C.noir,border:"none",...M,fontSize:10,padding:"11px 14px",cursor:"pointer"}}>X</button>
             </div>
@@ -957,7 +959,7 @@ setUploading(false);
         )}
         {photos.length===0?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
-            <div style={{...B,fontSize:13,color:C.noir,opacity:0.35,lineHeight:1.6}}>Le mural est vide. Sois le/la premier(e) a contribuer !</div>
+            <div style={{...B,fontSize:13,color:C.noir,opacity:0.35,lineHeight:1.6}}>Le mural est vide. Sois le/la premier·ère à contribuer !</div>
           </div>
         ):(
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
@@ -980,16 +982,16 @@ setUploading(false);
 
 function Infos(){
   const rows=[
-    {l:"Adresse",v:"Rue Pere Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
+    {l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
     {l:"Date",v:"Dimanche 5 avril 2026"},
     {l:"Horaires",v:"12h00 - 22h00"},
-    {l:"Entree",v:"Paye ce que tu peux\n5 EUR - 10 EUR - 15 EUR"},
-    {l:"Nous preferons le cash",v:"Merci de privilegier le paiement en especes.\nTerminal disponible si necessaire.",hi:true},
-    {l:"Transports",v:"Tram 7 ou 25 - arret Boileau\nMetro - arret Montgomery\nBus 36 - arret Boileau"},
-    {l:"Parking",v:"Disponible - Entree via rue Pere Eudore Devroye 12"},
-    {l:"Accessibilite",v:"Hall et sanitaires accessibles PMR"},
-    {l:"Bar",v:"Bar ouvert toute la journee\nBoissons et Snacks"},
-    {l:"Chasse aux oeufs",v:"10 oeufs speciaux dans le NOVUM\nTrouve 3 codes pour un prix !"},
+    {l:"Entrée",v:"Paye ce que tu veux\n5€ · 10€ · 15€"},
+    {l:"Nous préférons le cash",v:"Merci de privilégier le paiement en espèces.\nTerminal disponible si nécessaire.",hi:true},
+    {l:"Transports",v:"Tram 7 ou 25 - arrêt Boileau\nMetro - arrêt Montgomery\nBus 36 - arrêt Boileau"},
+    {l:"Parking",v:"Disponible - Entrée via rue Pere Eudore Devroye 12"},
+    {l:"Accessibilité",v:"Hall et sanitaires accessibles PMR"},
+    {l:"Bar",v:"Bar ouvert toute la journée\nBoissons et Snacks"},
+    {l:"Chasse aux œufs",v:"10 œufs speciaux dans le NOVUM\nTrouve 3 codes pour un prix ! !"},
   ];
   return(
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige,position:"relative"}}>
@@ -1016,12 +1018,12 @@ function Infos(){
 function Novum(){
   const [sec,setSec]=useState("discover");
   const disc=[
-    {t:"Art Deco - 1932",d:"Inaugure en 1932, le NOVUM porte encore les ornements Art Deco. Leve les yeux en entrant -- les reliefs en stuc des plafonds datent de l'epoque.",c:"A observer"},
-    {t:"Grande salle - 1100 places",d:"Concue pour l'opera classique, son acoustique est exceptionnelle. Ecoute les basses de la salle principale ce soir.",c:"A ressentir"},
-    {t:"Le bar historique",d:"Boiseries d'epoque, lumieres tamisees. Le meilleur endroit pour rencontrer les artistes apres leurs sets.",c:"A decouvrir"},
-    {t:"Details caches",d:"Regarde les carrelages Art Deco dans les couloirs et les reliefs en stuc. Les batisseurs de 1932 avaient de l'ambition.",c:"A chercher"},
-    {t:"La cour interieure",d:"Peu de visiteurs la trouvent : une cour accessible depuis le couloir lateral. Ideale pour une pause.",c:"A explorer"},
-    {t:"Acoustique secrete",d:"Dans certains couloirs, les sons resonnent de facon circulaire. Teste en chuchotant contre le mur du fond du hall.",c:"A experimenter"},
+    {t:"Art Deco - 1932",d:"Inauguré en 1932, le NOVUM porte encore les ornements Art Deco. Leve les yeux en entrant -- les reliefs en stuc des plafonds datent de l'époque.",c:"À observer"},
+    {t:"Grande salle - 1100 places",d:"Conçue pour l'opéra classique, son acoustique est exceptionnelle. Ecoute les basses de la salle principale ce soir.",c:"À ressentir"},
+    {t:"Le bar historique",d:"Boiseries d'epoque, lumières tamisées. Le meilleur endroit pour rencontrer les artistes apres leurs sets.",c:"À découvrir"},
+    {t:"Details caches",d:"Regarde les carrelages Art Deco dans les couloirs et les reliefs en stuc. Les bâtisseurs de 1932 avaient de l'ambition.",c:"À chercher"},
+    {t:"La cour interieure",d:"Peu de visiteurs la trouvént : une cour accessible depuis le couloir latéral. Idéale pour une pause.",c:"À explorer"},
+    {t:"Acoustique secrete",d:"Dans certains couloirs, les sons résonnent de façon circulaire. Teste en chuchotant contre le mur du fond du hall.",c:"À expérimenter"},
   ];
   return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:C.noir}}>
@@ -1031,7 +1033,7 @@ function Novum(){
         <div style={{position:"relative",zIndex:1,marginBottom:12}}>
           <div style={{...D,fontSize:58,color:C.blanc,lineHeight:0.88,marginBottom:4}}>NOVUM</div>
           <div style={{height:3,background:C.gradient,width:"35%",marginBottom:7}}/>
-          <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase"}}>Theatre Art Deco - Bruxelles - Depuis 1932</div>
+          <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase"}}>Théâtre Art Déco - Bruxelles - Depuis 1932</div>
         </div>
         <div style={{display:"flex",gap:1,position:"relative",zIndex:1}}>
           {[["discover","Decouvrir"],["info","Pratique"],["histoire","Histoire"]].map(([id,lb])=>(
@@ -1044,7 +1046,7 @@ function Novum(){
       <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
         {sec==="discover"&&(
           <div style={{padding:"18px"}}>
-            <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.7,marginBottom:18}}>Le NOVUM ne se visite pas -- il se decouvre. 6 experiences a vivre ce soir.</div>
+            <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.7,marginBottom:18}}>Le NOVUM ne se visite pas — il se découvre. 6 expériences à vivre ce soir.</div>
             {disc.map((d,i)=>(
               <div key={i} className="fu" style={{animationDelay:`${i*0.06}s`,background:"rgba(245,242,237,0.04)",border:"1px solid rgba(245,242,237,0.07)",padding:"14px",marginBottom:9,position:"relative"}}>
                 <div style={{position:"absolute",top:0,left:0,width:3,bottom:0,background:C.gradient}}/>
@@ -1060,11 +1062,11 @@ function Novum(){
         {sec==="info"&&(
           <div style={{padding:"18px"}}>
             {[
-              {l:"Adresse",v:"Rue Pere Eudore Devroye, 2\n1040 Bruxelles - Quartier Montgomery"},
-              {l:"Transports",v:"Tram 7 ou 25 - arret Boileau\nMetro - arret Montgomery ou Thieffry\nBus 36 - arret Boileau"},
-              {l:"Parking",v:"Disponible lors des evenements\nEntree via rue Pere Eudore Devroye, 12"},
-              {l:"Capacite",v:"Grande salle : 1100 places\nHall festif modulable"},
-              {l:"Acces PMR",v:"Hall et sanitaires accessibles"},
+              {l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Bruxelles - Quartier Montgomery"},
+              {l:"Transports",v:"Tram 7 ou 25 - arrêt Boileau\nMetro - arrêt Montgomery ou Thieffry\nBus 36 - arrêt Boileau"},
+              {l:"Parking",v:"Disponible lors des événements\nEntrée via rue Pere Eudore Devroye, 12"},
+              {l:"Capacité",v:"Grande salle : 1100 places\nHall festif modulable"},
+              {l:"Accès PMR",v:"Hall et sanitaires accessibles"},
               {l:"Bar",v:"Ouvert 1h avant les evenements\nBoissons et Snacks"},
             ].map((r,i)=>(
               <div key={i} style={{background:"rgba(245,242,237,0.04)",border:"1px solid rgba(245,242,237,0.06)",padding:"13px 15px",marginBottom:8}}>
@@ -1080,9 +1082,9 @@ function Novum(){
         {sec==="histoire"&&(
           <div style={{padding:"18px"}}>
             {[
-              {y:"1932",t:"Fondation",v:"Inaugure en 1932 sous le nom de Theatre Saint-Michel, le batiment Art Deco etait destine aux grandes productions lyriques de la capitale belge."},
-              {y:"100 ans",t:"Un siecle de spectacles",v:"Pendant pres d'un siecle, le Theatre Saint-Michel a traverse les grandes transformations culturelles de Bruxelles, preservant toujours son ame Art Deco."},
-              {y:"Aujourd'hui",t:"NOVUM",v:"Rebaptise NOVUM, le lieu accueille aujourd'hui theatre, musique, expositions et evenements. Ce soir, il accueille le Marche Creatif d'eRReurProductions."},
+              {y:"1932",t:"Fondation",v:"Inauguré en 1932 sous le nom de Theatre Saint-Michel, le bâtiment Art Déco était destiné aux grandes productions lyriques de la capitale belge."},
+              {y:"100 ans",t:"Un siecle de spectacles",v:"Pendant près d'un siècle, le Théâtre Saint-Michel a traversé les grandes transformations culturelles de Bruxelles, préservant toujours son âme Art Déco."},
+              {y:"Aujourd'hui",t:"NOVUM",v:"Rebaptisé NOVUM, le lieu accueille aujourd'hui théâtre, musique, expositions et événements. Ce soir, il accueille le Marché Créatif d'eRReurProductions."},
             ].map((r,i)=>(
               <div key={i} style={{background:"rgba(245,242,237,0.04)",border:"1px solid rgba(245,242,237,0.07)",padding:"18px",marginBottom:12}}>
                 <div style={{...D,fontSize:32,color:C.blanc,marginBottom:4}}>{r.y}</div>
@@ -1113,16 +1115,16 @@ function Erreur(){
           <div style={{...D,fontSize:22,color:C.blanc,lineHeight:1.2,position:"relative",zIndex:1}}>WE DON'T ONLY PRODUCE MISTAKES</div>
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:13}}>
-          <div style={{...B,fontSize:14,color:C.noir,lineHeight:1.75,opacity:0.88}}>eRReurProductions est une structure de production independante basee a Bruxelles, fondee par Rita Rodrigues. Elle produit courts metrages, documentaires, clips musicaux et evenements selon une approche d'auteur.</div>
+          <div style={{...B,fontSize:14,color:C.noir,lineHeight:1.75,opacity:0.88}}>eRReurProductions est une structure de production indépendante basée à Bruxelles, fondée par Rita Rodrigues. Elle produit courts métrages, documentaires, clips musicaux et événements selon une approche d'auteur.</div>
         </div>
         <div style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"16px",marginBottom:13}}>
           <div style={{...M,fontSize:9,color:C.noir,opacity:0.33,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:7}}>Fondatrice</div>
           <div style={{...D,fontSize:26,color:C.noir,marginBottom:7}}>Rita Rodrigues</div>
-          <div style={{...B,fontSize:13,color:C.noir,lineHeight:1.75,opacity:0.82}}>Productrice et realisatrice basee a Bruxelles. Avant de fonder eRReurProductions, elle a travaille comme actrice puis comme script supervisor. Son travail est influence par le cinema d'auteur.</div>
+          <div style={{...B,fontSize:13,color:C.noir,lineHeight:1.75,opacity:0.82}}>Productrice et réalisatrice basée à Bruxelles. Avant de fonder eRReurProductions, elle a travaillé comme actrice puis comme script supervisor. Son travail est influencé par le cinéma d'auteur.</div>
         </div>
         <div style={{...M,fontSize:9,color:C.noir,opacity:0.33,letterSpacing:"0.15em",textTransform:"uppercase",marginBottom:9}}>Formats de production</div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:16}}>
-          {["Courts metrages","Documentaires","Clips musicaux","Evenements"].map(f=>(
+          {["Courts métrages","Documentaires","Clips musicaux","Événements"].map(f=>(
             <div key={f} style={{background:C.blanc,border:"1.5px solid rgba(10,10,10,0.07)",padding:"13px 11px"}}>
               <div style={{...B,fontSize:12,color:C.noir,fontWeight:500}}>{f}</div>
             </div>
@@ -1141,7 +1143,7 @@ function Erreur(){
   );
 }
 
-const SYS="Tu es L Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix editoriale, precise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Theatre Art Deco 1932, Rue Pere Eudore Devroye 2, 1040 Bruxelles. Chasse aux oeufs: 10 oeufs speciaux, 3 = prix chez eRReur. Cash uniquement sur place. Reponds TOUJOURS en francais, 2-5 phrases.";
+const SYS="Tu es L'Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix éditoriale, precise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Théâtre Art Déco 1932, Rue Père Eudore Devroye 2, 1040 Bruxelles. Chasse aux œufs: 10 œufs speciaux, 3 = prix chez eRReur. Cash uniquement sur place. Réponds TOUJOURS en français, 2-5 phrases.";
 
 function AI({visitor}){
   const [msgs,setMsgs]=useState(()=>{
@@ -1160,9 +1162,9 @@ function AI({visitor}){
   },[loading]);
 
   const QK=[
-    {l:"Quel DJ ecouter ?",m:"Quel DJ recommandes-tu a ce moment de la journee ?"},
-    {l:"Par ou commencer ?",m:"Je viens d'arriver. Par ou commencer ?"},
-    {l:"Indice pour les oeufs ?",m:"Un indice pour trouver les oeufs speciaux ?"},
+    {l:"Quel DJ écouter ?",m:"Quel DJ recommandes-tu a ce moment de la journee ?"},
+    {l:"Par où commencer ?",m:"Je viens d'arriver. Par où commencer ?"},
+    {l:"Indice pour les œufs ?",m:"Un indice pour trouvér les œufs speciaux ?"},
     {l:"Le NOVUM ?",m:"Dis-moi quelque chose sur le NOVUM."},
     {l:"eRReur Productions ?",m:"Parle-moi d'eRReurProductions et de Rita Rodrigues."},
     {l:"Paiement ?",m:"Est-ce qu'on peut payer par carte sur place ?"},
@@ -1185,7 +1187,7 @@ function AI({visitor}){
       setMsgs(finalMsgs);
       try{localStorage.setItem("mc2-ai",JSON.stringify(finalMsgs));}catch(_){}
     }catch(_){
-      const errMsgs=[...nm,{role:"assistant",content:"Connexion interrompue. Reessaie."}];
+      const errMsgs=[...nm,{role:"assistant",content:"Connexion interrompue. Réessaie."}];
       setMsgs(errMsgs);
       try{localStorage.setItem("mc2-ai",JSON.stringify(errMsgs));}catch(_){}
     }
@@ -1199,7 +1201,7 @@ function AI({visitor}){
         <div style={{position:"relative",zIndex:1,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
           <div>
             <div style={{...D,fontSize:24,color:C.blanc,lineHeight:1}}>L'ERREUR</div>
-            <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>Voix editoriale - eRReurProductions</div>
+            <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>Voix éditoriale - eRReurProductions</div>
           </div>
           <div style={{width:34,height:34,background:C.gradB,display:"flex",alignItems:"center",justifyContent:"center",color:C.blanc,...D,fontSize:20}}>*</div>
         </div>
@@ -1209,7 +1211,7 @@ function AI({visitor}){
           {msgs.length===0&&(
             <div style={{textAlign:"center",padding:"14px 0 18px"}}>
               <div style={{...D,fontSize:20,color:C.blanc,marginBottom:5}}>Bonjour {visitor?.name} !</div>
-              <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.5)",lineHeight:1.7,marginBottom:14}}>Je suis L'Erreur -- guide editorial du Marche Creatif. Pose-moi n'importe quelle question.</div>
+              <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.5)",lineHeight:1.7,marginBottom:14}}>Je suis L'Erreur — guide éditorial du Marché Créatif. Pose-moi n'importe quelle question.</div>
               <div style={{display:"flex",flexWrap:"wrap",gap:6,justifyContent:"center"}}>
                 {QK.map((q,i)=>(
                   <button key={i} onClick={()=>send(q.m)} style={{background:"rgba(245,242,237,0.07)",border:"1px solid rgba(245,242,237,0.2)",color:"rgba(245,242,237,0.85)",...M,fontSize:9,padding:"5px 9px",cursor:"pointer"}}>{q.l}</button>
@@ -1238,7 +1240,7 @@ function AI({visitor}){
             <div style={{display:"flex",alignItems:"flex-end",gap:7,marginBottom:11}}>
               <div style={{width:24,height:24,background:C.gradB,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:C.blanc,flexShrink:0,...D}}>*</div>
               <div style={{background:"rgba(245,242,237,0.06)",border:"1px solid rgba(245,242,237,0.07)",borderRadius:"14px 14px 14px 4px",padding:"10px 13px"}}>
-                <div style={{...M,fontSize:11,color:"rgba(245,242,237,0.6)",fontStyle:"italic"}}>L'Erreur reflechit{dots}</div>
+                <div style={{...M,fontSize:11,color:"rgba(245,242,237,0.6)",fontStyle:"italic"}}>L'Erreur réfléchit{dots}</div>
               </div>
             </div>
           )}

@@ -143,10 +143,16 @@ export default function App(){
     }catch(_){}
     // fetch global egg count from JSONBin
     if(EGGS_BIN){
-      fetchBin(EGGS_BIN).then(d=>{
-        if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
-      });
-    }
+  fetchBin(EGGS_BIN).then(d=>{
+    if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
+  });
+  const interval=setInterval(()=>{
+    fetchBin(EGGS_BIN).then(d=>{
+      if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
+    });
+  },15000);
+  return()=>clearInterval(interval);
+}
     // fetch shared photos from JSONBin and merge with local
 if(PHOTOS_BIN){
   fetchBin(PHOTOS_BIN).then(d=>{

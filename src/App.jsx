@@ -36,13 +36,38 @@ const DJS=[
 ];
 
 const EXPOS=[
-  {id:"e1",name:"Studio Atelier No1",type:"Illustration et Print",desc:"Sérigraphies, risographies et tirages d'art en édition limitée.",color:"#E8622A",code:"1842",photo:null},
-  {id:"e2",name:"Ceramiques Libre",type:"Ceramique",desc:"Pièces uniques façonnées à la main, entre utilité et sculpture.",color:"#C4547A",code:"2956",photo:null},
-  {id:"e3",name:"Kollectiv Zine",type:"Edition independante",desc:"Zines, livres d'artistes et publications auto-éditées.",color:"#7B5EA7",code:"3714",photo:null},
-  {id:"e4",name:"Archive Textile",type:"Mode et Upcycling",desc:"Pièces vintage retravaillées et créations textiles contemporaines.",color:"#4A6FD4",code:"4023",photo:null},
-  {id:"e5",name:"Labo Photo",type:"Photographie",desc:"Tirages argentiques et numériques, portraits et documentaires urbains.",color:"#3A8A6A",code:"5678",photo:null},
-  {id:"e6",name:"A confirmer",type:"--",desc:"Bientôt révélé.",color:"#888",code:"6000",photo:null},
-  {id:"e7",name:"A confirmer",type:"--",desc:"Bientôt révélé.",color:"#888",code:"7000",photo:null},
+  {id:"e1",name:"MADE WITH SUN",type:"Bougies & Bijoux",
+   desc:"Nous sommes deux amies, Lauren et Justine, animées par une passion commune : la créativité. En septembre 2022 nous nous sommes lancés dans un nouveau projet de confection de bougies et de bijoux faits main. Les bijoux sont confectionnés en argile polymère ; chaque pièce est unique. Quant aux bougies elles sont créées à base de cire végétale de soja. L'inspiration derrière nos créations vient des couleurs, des odeurs et des rayons de soleil que nous ramenons lors de nos voyages.",
+   color:"#E8622A",code:"0000",instagram:"made.with.sun",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056655/MadeWithSun_hpmdnv.jpg"},
+  {id:"e2",name:"RIOT BIJOUX",type:"Bijoux",
+   desc:"Colourful and yummy sweets bijoux in Fimo and jewellery with vintage components.",
+   color:"#C4547A",code:"3333",instagram:"alice__riotbijoux",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056656/Riot_Bijoux_gvzv4t.jpg"},
+  {id:"e3",name:"ALEXANDRA DAOUST",type:"Photographie & Illustration",
+   desc:"Je m'appelle Alexandra et suis artiste photographe, mes affiches sont nées de mes photographies. Des fragments du réel, parfois bruts, parfois drôles, parfois piquants, que je détourne pour leur donner une nouvelle voix. Déclinées sur différents supports tels que tasses, marque-pages, stickers, cartes, plexiglas...",
+   color:"#7B5EA7",code:"5555",instagram:"daoustalexartiste",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056657/Alexandra_v3zbmd.jpg"},
+  {id:"e4",name:"EDITH SCOTTINI",type:"Art & Illustrations",
+   desc:"Edith Scottini, artiste peintre et illustratrice bruxelloise. Mon travail met en lumière et en couleurs l'intériorité, les émotions complexes et les mondes imaginaires. Je cherche toujours un équilibre entre poésie, tension dramatique et émerveillement. Mes sujets de prédilection sont la nature, les animaux ainsi que la figure féminine.",
+   color:"#4A6FD4",code:"4444",instagram:"edith.scottini",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056656/Edith_qdyflp.jpg"},
+  {id:"e5",name:"ÉPONYMES KNITS",type:"Mode",
+   desc:"Éponymes knits est une marque de vêtement pour femme, créé et réalisé à Bruxelles. Inspiré par le féminin, à travers coupe et texture nous explorons des pièces qui allient douceur et élégance. Nous utilisons uniquement des matériaux réutilisés — achetés en seconde main ou up-cyclés, chaque pièce est réalisée avec éthique et conscience.",
+   color:"#3A8A6A",code:"2222",instagram:"eponymes_knits",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056656/Eponyme_iu1zqs.jpg"},
+  {id:"e6",name:"OLIVE ET ZOÉ TOUSSAINT",type:"Illustrations",
+   desc:"Olive est slameuse & artiste, elle peinturlure ses carnets à la gouache, chaque page ouvre une porte où l'on rêve d'entrer. Zoé a un style abstrait et naïf à la gouache qu'on adore.",
+   color:"#E8622A",code:"1111",instagram:"oliveslam",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056655/Tousaints_eh9zs2.jpg"},
+  {id:"e7",name:"NONANTE 4",type:"Art & Design",
+   desc:"Nonante 4, c'est un smoothie noir fluo composé de formes pop 90's, de formes organiques, de morceaux de bicyclette upcyclés, de pigments dont la plupart sont Glow in the Black Light, d'association assumée de couleurs vives qui garantissent davantage l'affirmation que la discrétion... le tout handmade with love in BXL 1070.",
+   color:"#C4547A",code:"6666",instagram:"nonante4store",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056657/94Store_x6ae79.jpg"},
+  {id:"e8",name:"SACHA VULIC — SEA THE COLORS",type:"Photographie",
+   desc:"Depuis plusieurs années, Sacha photographie ce qui l'entoure : des moments, des lieux, des visages. Après cinq ans à explorer la photographie à l'argentique, il franchit aujourd'hui un nouveau cap. Avec Sea the Colors, Sacha expose une série de tirages aux sujets divers et colorés, tous en lien avec la mer et ses rivages. Une invitation au voyage.",
+   color:"#4A6FD4",code:"7777",instagram:"",web:"",
+   photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775057442/sacha_cwm7pl.jpg"},
 ];
 
 const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF08","OEUF09","OEUF10"];
@@ -136,7 +161,9 @@ if(PHOTOS_BIN){
   });
 }
     if(EXPOS_BIN){
+      console.log("Fetching expos from JSONBin...");
       fetchBin(EXPOS_BIN).then(d=>{
+        console.log("Expos recebidos:", d);
         if(!d?.expos?.length)return;
         setExpos(d.expos);
         try{localStorage.setItem("mc2-x",JSON.stringify(d.expos));}catch(_){}
@@ -198,18 +225,12 @@ function addPhoto(url,caption){
 
   function updateExpos(ne){
   setExpos(ne);sv("mc2-x",ne);
+  console.log("EXPOS_BIN:", EXPOS_BIN);
+  console.log("Saving expos:", ne.length, "items");
   if(EXPOS_BIN){
-    fetchBin(EXPOS_BIN).then(remote=>{
-      if(remote?.expos?.length){
-        const remoteById=Object.fromEntries(remote.expos.map(e=>[e.id,e]));
-        const localById=Object.fromEntries(ne.map(e=>[e.id,e]));
-        const merged=Object.values({...remoteById,...localById});
-        putBin(EXPOS_BIN,{expos:merged});
-        setExpos(merged);sv("mc2-x",merged);
-      } else {
-        putBin(EXPOS_BIN,{expos:ne});
-      }
-    });
+    putBin(EXPOS_BIN,{expos:ne}).then(()=>console.log("Expos sync OK!")).catch(e=>console.log("Expos sync ERRO:", e));
+  } else {
+    console.log("EXPOS_BIN vazio!");
   }
 }
   function updateDj(updated){

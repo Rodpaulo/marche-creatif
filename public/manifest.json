@@ -1,0 +1,18 @@
+{
+  "name": "Marché Créatif",
+  "short_name": "Marché Créatif",
+  "description": "Le guide du Marché Créatif au NOVUM - 5 avril 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#E8E2D9",
+  "theme_color": "#0A0A0A",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

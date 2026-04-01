@@ -24,25 +24,25 @@ function Arr({size=40,color="#0A0A0A",style={}}){
 
 const DJS=[
   {id:"khammix",name:"KHAMMIX",time:"15h00 - 16h30",set:"Nostalkhammix",genre:"Bouncy Trance - Eurodance - 90s/2000s",color:"#E8622A",
-   bio:"Bouncy trance, eurodance et nostalgie assumee. Des melodies accrocheuses, des drops energiques et une vibe 90s/2000s revisitee. Un set pense pour te faire sourire et rester en mouvement. Yalla Habibi"},
+   bio:"Bouncy trance, eurodance et nostalgie assumée. Des mélodies accrocheuses, des drops énergiques et une vibe 90s/2000s revisitée. Un set pensé pour te faire sourire et rester en mouvement. Yalla Habibi"},
   {id:"kassl",name:"KASS L",time:"16h30 - 18h00",set:"Tech House Groovy",genre:"Tech House - Groove",color:"#C4547A",
-   bio:"Depuis son plus jeune age, la musique est son univers. Kass L vous a concote un set tech house groovy qui va enflammer la piste des les premieres notes."},
+   bio:"Depuis son plus jeune âge, la musique est son univers. Kass L vous a concocté un set tech house groovy qui va enflammer la piste dès les premières notes."},
   {id:"micropia",name:"MICROPIA",time:"18h00 - 19h30",set:"Deep Atmospheres",genre:"Deep House - Minimal - Hypnotique",color:"#7B5EA7",
-   bio:"Nourri par la deep house et les grooves hypnotiques, Micropia vous embarque pour un set aux atmospheres enveloppantes, porte par des kicks bien ronds et des basses profondes."},
+   bio:"Nourri par la deep house et les grooves hypnotiques, Micropia vous embarque pour un set aux atmosphères enveloppantes, porte par des kicks bien ronds et des basses profondes."},
   {id:"rexorder",name:"REXORDER",time:"19h30 - 21h00",set:"Club Energy",genre:"Speed Garage - UK Garage - House - DNB",color:"#4A6FD4",
-   bio:"Producteur et DJ oscillant entre Speed Garage, UK Garage, House et DNB. Sa musique mele basslines massives et energie rave. Il collabore avec la rappeuse UCCI WHY."},
+   bio:"Producteur et DJ oscillant entre Speed Garage, UK Garage, House et DNB. Sa musique mêle basslines massives et énergie rave. Il collabore avec la rappeuse UCCI WHY."},
   {id:"frks",name:"FRKS",time:"21h00 - 22h00",set:"Closing Set",genre:"Techno - Trance - UK Garage",color:"#0A0A0A",
-   bio:"Converti de force a la techno par Rita, FRKS a fait ses armes lors de l'anniversaire de cette derniere. Sa philosophie : on n'arrete jamais les 3D."},
+   bio:"Converti de force à la techno par Rita, FRKS a fait ses armes lors de l'anniversaire de cette dernière. Sa philosophie : on n'arrête jamais les 3D."},
 ];
 
 const EXPOS=[
-  {id:"e1",name:"Studio Atelier No1",type:"Illustration et Print",desc:"Serigraphies, risographies et tirages d'art en edition limitee.",color:"#E8622A",code:"1842",photo:null},
-  {id:"e2",name:"Ceramiques Libre",type:"Ceramique",desc:"Pieces uniques faconnees a la main, entre utilite et sculpture.",color:"#C4547A",code:"2956",photo:null},
-  {id:"e3",name:"Kollectiv Zine",type:"Edition independante",desc:"Zines, livres d'artistes et publications auto-editees.",color:"#7B5EA7",code:"3714",photo:null},
-  {id:"e4",name:"Archive Textile",type:"Mode et Upcycling",desc:"Pieces vintage retravaillees et creations textiles contemporaines.",color:"#4A6FD4",code:"4023",photo:null},
-  {id:"e5",name:"Labo Photo",type:"Photographie",desc:"Tirages argentiques et numeriques, portraits et documentaires urbains.",color:"#3A8A6A",code:"5678",photo:null},
-  {id:"e6",name:"A confirmer",type:"--",desc:"Bientot revele.",color:"#888",code:"6000",photo:null},
-  {id:"e7",name:"A confirmer",type:"--",desc:"Bientot revele.",color:"#888",code:"7000",photo:null},
+  {id:"e1",name:"Studio Atelier No1",type:"Illustration et Print",desc:"Sérigraphies, risographies et tirages d'art en édition limitée.",color:"#E8622A",code:"1842",photo:null},
+  {id:"e2",name:"Ceramiques Libre",type:"Ceramique",desc:"Pièces uniques façonnées à la main, entre utilité et sculpture.",color:"#C4547A",code:"2956",photo:null},
+  {id:"e3",name:"Kollectiv Zine",type:"Edition independante",desc:"Zines, livres d'artistes et publications auto-éditées.",color:"#7B5EA7",code:"3714",photo:null},
+  {id:"e4",name:"Archive Textile",type:"Mode et Upcycling",desc:"Pièces vintage retravaillées et créations textiles contemporaines.",color:"#4A6FD4",code:"4023",photo:null},
+  {id:"e5",name:"Labo Photo",type:"Photographie",desc:"Tirages argentiques et numériques, portraits et documentaires urbains.",color:"#3A8A6A",code:"5678",photo:null},
+  {id:"e6",name:"A confirmer",type:"--",desc:"Bientôt révélé.",color:"#888",code:"6000",photo:null},
+  {id:"e7",name:"A confirmer",type:"--",desc:"Bientôt révélé.",color:"#888",code:"7000",photo:null},
 ];
 
 const EGGS=["OEUF01","OEUF02","OEUF03","OEUF04","OEUF05","OEUF06","OEUF07","OEUF08","OEUF09","OEUF10"];
@@ -148,7 +148,7 @@ if(PHOTOS_BIN){
     setStamps(ns);sv("mc2-s",ns);
     const c=Object.values(ns).filter(Boolean).length;
     if(c===1)showToast("Premier tampon !");
-    else if(c===3)showToast("3 stands visités !");
+    else if(c===3)showToast("3 stands visites !");
   }
 
   function findEgg(code){
@@ -167,7 +167,7 @@ if(PHOTOS_BIN){
   } else {
   }
   if(ne.length===3)showToast("3 œufs ! Va chercher ton prix chez eRReur !");
-  else showToast("Œuf #"+ne.length+" trouvé !");
+  else showToast("Œuf #"+ne.length+" trouve !");
   return "found";
 }
 
@@ -278,7 +278,7 @@ function Splash({done,onEnter}){
           </div>
         </div>
         <div className={done?"fu":""} style={{animationDelay:"0.25s"}}>
-          <div style={{...M,fontSize:9,color:C.noir,opacity:0.45,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:8}}>Entrée libre - Paye ce que tu veux</div>
+          <div style={{...M,fontSize:9,color:C.noir,opacity:0.45,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:8}}>Entrée libre · Paye ce que tu veux</div>
           <div style={{display:"flex",gap:8,marginBottom:24}}>
             {["5 EUR","10 EUR","15 EUR"].map(p=><div key={p} style={{...D,fontSize:20,color:C.noir,background:"rgba(10,10,10,0.08)",padding:"4px 12px"}}>{p}</div>)}
           </div>
@@ -347,11 +347,11 @@ function Header({visitor,eggCount,stampCount,isAdmin,onAdmin}){
       <div style={{background:C.noir,padding:"10px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",inset:0,background:C.gradB,opacity:0.12}}/>
         <div style={{position:"relative",zIndex:1}}>
-          <div style={{...D,fontSize:18,color:C.blanc,letterSpacing:"0.05em",lineHeight:1}}>MARCHÉ CRÉATIF</div>
+          <div style={{...D,fontSize:18,color:C.blanc,letterSpacing:"0.05em",lineHeight:1}}>MARCHE CREATIF</div>
           <div style={{...M,fontSize:8,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>05.04.26 - {visitor?.name}</div>
         </div>
         <div style={{position:"relative",zIndex:1,display:"flex",gap:6,alignItems:"center"}}>
-          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>œufs: {eggCount}</div>}
+          {eggCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>oeufs: {eggCount}</div>}
           {stampCount>0&&<div style={{...M,fontSize:9,background:"rgba(245,242,237,0.1)",color:C.blanc,padding:"3px 7px"}}>stands: {stampCount}</div>}
           <button onClick={()=>isAdmin?onAdmin():setShowA(v=>!v)}
             style={{background:isAdmin?"rgba(232,98,42,0.3)":"rgba(245,242,237,0.08)",border:isAdmin?"1px solid #E8622A":"1px solid rgba(245,242,237,0.3)",color:C.blanc,...M,fontSize:8,padding:"4px 9px",cursor:"pointer",letterSpacing:"0.1em"}}>
@@ -578,7 +578,7 @@ function ExpoList({expos,stamps,onSel,onStamp,isAdmin,onUpdate}){
               <div style={{...M,fontSize:8,color:C.noir,opacity:0.4,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Photo</div>
               <label style={{display:"block",cursor:"pointer"}}>
                 <div style={{height:100,background:form.photo?`url(${form.photo}) center/cover`:C.beige,border:"2px dashed "+(form.photo?"transparent":"rgba(10,10,10,0.2)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
-                  {!form.photo&&<span style={{...M,fontSize:11,color:C.noir,opacity:0.35}}>Taper pour ajouter photo</span>}
+                  {!form.photo&&<span style={{...M,fontSize:11,color:C.noir,opacity:0.35}}>Toucher pour ajouter photo</span>}
                 </div>
                 <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{
                   const f=e.target.files[0];if(!f)return;
@@ -713,7 +713,7 @@ function ExpoPage({exp,stamped,onStamp,onBack,isAdmin,onUpdate}){
                   <div style={{...M,fontSize:8,color:C.noir,opacity:0.4,letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:5}}>Photo</div>
                   <label style={{display:"block",cursor:"pointer"}}>
                     <div style={{height:90,background:form.photo?`url(${form.photo}) center/cover`:C.beige,border:"2px dashed "+(form.photo?"transparent":"rgba(10,10,10,0.2)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
-                      {!form.photo&&<span style={{...M,fontSize:11,color:C.noir,opacity:0.35}}>Taper pour photo</span>}
+                      {!form.photo&&<span style={{...M,fontSize:11,color:C.noir,opacity:0.35}}>Toucher pour photo</span>}
                     </div>
                     <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{
                       const f=e.target.files[0];if(!f)return;
@@ -746,7 +746,7 @@ function Explore({myEggs,eggCount,globalEggs,onFind,photos,onAddPhoto,visitor}){
   return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:C.beige}}>
       <div style={{display:"flex",background:C.blanc,borderBottom:"1.5px solid rgba(10,10,10,0.08)",flexShrink:0}}>
-        {[["eggs","Chasse aux œufs"],["mural","Mural photo"]].map(([id,lb])=>(
+        {[["eggs","Chasse aux oeufs"],["mural","Mural photo"]].map(([id,lb])=>(
           <button key={id} onClick={()=>setSec(id)} style={{flex:1,padding:"12px 0",background:"none",border:"none",cursor:"pointer",borderBottom:sec===id?"3px solid #E8622A":"3px solid transparent"}}>
             <span style={{...M,fontSize:10,color:sec===id?C.orange:C.noir,opacity:sec===id?1:0.4,fontWeight:sec===id?700:400,letterSpacing:"0.08em",textTransform:"uppercase"}}>{lb}</span>
           </button>
@@ -781,11 +781,11 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
           <div style={{position:"relative",zIndex:1}}>
             <div style={{...D,fontSize:32,color:C.blanc,lineHeight:0.9,marginBottom:10}}>CHASSE AUX ŒUFS</div>
             <div style={{...B,fontSize:13,color:"rgba(245,242,237,0.75)",lineHeight:1.7,marginBottom:12}}>
-              Des œufs en chocolat sont disperses dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont spéciaux</strong> -- ils portent un code. Tu peux manger les autres !
+              Des œufs en chocolat sont dispersés dans le NOVUM. <strong style={{color:C.blanc}}>10 d'entre eux sont spéciaux</strong> -- ils portent un code. Tu peux manger les autres !
             </div>
             <div style={{padding:"10px 12px",background:"rgba(232,98,42,0.25)",border:"1px solid rgba(232,98,42,0.4)"}}>
               <div style={{...M,fontSize:10,color:C.orange,fontWeight:700,letterSpacing:"0.1em",marginBottom:3}}>TROUVE 3 ŒUFS SPÉCIAUX</div>
-              <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.7)"}}>Va au stand eRReurProductions pour ton prix ! !</div>
+              <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.7)"}}>Va au stand eRReurProductions pour ton prix !</div>
             </div>
           </div>
         </div>
@@ -809,7 +809,7 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
             <div style={{...M,fontSize:9,color:C.noir,opacity:0.38,letterSpacing:"0.1em",textTransform:"uppercase"}}>Ta progression</div>
             <div style={{...M,fontSize:9,color:eggCount>=3?C.orange:C.noir,opacity:eggCount>=3?1:0.38}}>
-              {eggCount>=3?"Prix disponible !":eggCount>=1?"encore "+(3-eggCount)+" pour le prix":"Commence la chasse !"}
+              {eggCount>=3?"Prix disponible !":eggCount>=1?"encore " +(3-eggCount)+" pour le prix":"Commence la chasse !"}
             </div>
           </div>
           <div style={{background:"rgba(10,10,10,0.07)",height:6,marginBottom:8}}>
@@ -959,7 +959,7 @@ setUploading(false);
         )}
         {photos.length===0?(
           <div style={{textAlign:"center",padding:"28px 0"}}>
-            <div style={{...B,fontSize:13,color:C.noir,opacity:0.35,lineHeight:1.6}}>Le mural est vide. Sois le/la premier·ère à contribuer !</div>
+            <div style={{...B,fontSize:13,color:C.noir,opacity:0.35,lineHeight:1.6}}>Le mural est vide. Sois le·la premier·ère à contribuer !</div>
           </div>
         ):(
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
@@ -982,16 +982,16 @@ setUploading(false);
 
 function Infos(){
   const rows=[
-    {l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
+    {l:"Adresse",v:"Rue Pere Eudore Devroye, 2\n1040 Ixelles, Bruxelles\nQuartier Montgomery"},
     {l:"Date",v:"Dimanche 5 avril 2026"},
     {l:"Horaires",v:"12h00 - 22h00"},
-    {l:"Entrée",v:"Paye ce que tu veux\n5€ · 10€ · 15€"},
+    {l:"Entree",v:"Paye ce que tu peux\n5€ · 10€ · 15€"},
     {l:"Nous préférons le cash",v:"Merci de privilégier le paiement en espèces.\nTerminal disponible si nécessaire.",hi:true},
-    {l:"Transports",v:"Tram 7 ou 25 - arrêt Boileau\nMetro - arrêt Montgomery\nBus 36 - arrêt Boileau"},
-    {l:"Parking",v:"Disponible - Entrée via rue Pere Eudore Devroye 12"},
-    {l:"Accessibilité",v:"Hall et sanitaires accessibles PMR"},
+    {l:"Transports",v:"Tram 7 ou 25 — arrêt Boileau\nMétro — arrêt Montgomery\nBus 36 — arrêt Boileau"},
+    {l:"Parking",v:"Disponible - Entrée via rue Père Eudore Devroye 12"},
+    {l:"Accessibilite",v:"Hall et sanitaires accessibles PMR"},
     {l:"Bar",v:"Bar ouvert toute la journée\nBoissons et Snacks"},
-    {l:"Chasse aux œufs",v:"10 œufs speciaux dans le NOVUM\nTrouve 3 codes pour un prix ! !"},
+    {l:"Chasse aux oeufs",v:"10 oeufs speciaux dans le NOVUM\nTrouve 3 codes pour un prix !"},
   ];
   return(
     <div style={{flex:1,overflowY:"auto",WebkitOverflowScrolling:"touch",background:C.beige,position:"relative"}}>
@@ -1018,11 +1018,11 @@ function Infos(){
 function Novum(){
   const [sec,setSec]=useState("discover");
   const disc=[
-    {t:"Art Deco - 1932",d:"Inauguré en 1932, le NOVUM porte encore les ornements Art Deco. Leve les yeux en entrant -- les reliefs en stuc des plafonds datent de l'époque.",c:"À observer"},
-    {t:"Grande salle - 1100 places",d:"Conçue pour l'opéra classique, son acoustique est exceptionnelle. Ecoute les basses de la salle principale ce soir.",c:"À ressentir"},
-    {t:"Le bar historique",d:"Boiseries d'epoque, lumières tamisées. Le meilleur endroit pour rencontrer les artistes apres leurs sets.",c:"À découvrir"},
+    {t:"Art Déco — 1932",d:"Inauguré en 1932, le NOVUM porte encore les ornements Art Déco. Leve les yeux en entrant -- les reliefs en stuc des plafonds datent de l'époque.",c:"À observer"},
+    {t:"Grande salle — 1100 places",d:"Conçue pour l'opéra classique, son acoustique est exceptionnelle. Ecoute les basses de la salle principale ce soir.",c:"À ressentir"},
+    {t:"Le bar historique",d:"Boiseries d'epoque, lumieres tamisees. Le meilleur endroit pour rencontrer les artistes après leurs sets.",c:"À découvrir"},
     {t:"Details caches",d:"Regarde les carrelages Art Deco dans les couloirs et les reliefs en stuc. Les bâtisseurs de 1932 avaient de l'ambition.",c:"À chercher"},
-    {t:"La cour interieure",d:"Peu de visiteurs la trouvént : une cour accessible depuis le couloir latéral. Idéale pour une pause.",c:"À explorer"},
+    {t:"La cour interieure",d:"Peu de visiteurs la trouvent : une cour accessible depuis le couloir latéral. Idéale pour une pause.",c:"À explorer"},
     {t:"Acoustique secrete",d:"Dans certains couloirs, les sons résonnent de façon circulaire. Teste en chuchotant contre le mur du fond du hall.",c:"À expérimenter"},
   ];
   return(
@@ -1033,7 +1033,7 @@ function Novum(){
         <div style={{position:"relative",zIndex:1,marginBottom:12}}>
           <div style={{...D,fontSize:58,color:C.blanc,lineHeight:0.88,marginBottom:4}}>NOVUM</div>
           <div style={{height:3,background:C.gradient,width:"35%",marginBottom:7}}/>
-          <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase"}}>Théâtre Art Déco - Bruxelles - Depuis 1932</div>
+          <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.15em",textTransform:"uppercase"}}>Théâtre Art Déco · Bruxelles · Depuis 1932</div>
         </div>
         <div style={{display:"flex",gap:1,position:"relative",zIndex:1}}>
           {[["discover","Decouvrir"],["info","Pratique"],["histoire","Histoire"]].map(([id,lb])=>(
@@ -1062,10 +1062,10 @@ function Novum(){
         {sec==="info"&&(
           <div style={{padding:"18px"}}>
             {[
-              {l:"Adresse",v:"Rue Père Eudore Devroye, 2\n1040 Bruxelles - Quartier Montgomery"},
-              {l:"Transports",v:"Tram 7 ou 25 - arrêt Boileau\nMetro - arrêt Montgomery ou Thieffry\nBus 36 - arrêt Boileau"},
-              {l:"Parking",v:"Disponible lors des événements\nEntrée via rue Pere Eudore Devroye, 12"},
-              {l:"Capacité",v:"Grande salle : 1100 places\nHall festif modulable"},
+              {l:"Adresse",v:"Rue Pere Eudore Devroye, 2\n1040 Bruxelles — Quartier Montgomery"},
+              {l:"Transports",v:"Tram 7 ou 25 — arrêt Boileau\nMétro — arrêt Montgomery ou Thieffry\nBus 36 — arrêt Boileau"},
+              {l:"Parking",v:"Disponible lors des événements\nEntrée via rue Père Eudore Devroye, 12"},
+              {l:"Capacite",v:"Grande salle : 1100 places\nHall festif modulable"},
               {l:"Accès PMR",v:"Hall et sanitaires accessibles"},
               {l:"Bar",v:"Ouvert 1h avant les evenements\nBoissons et Snacks"},
             ].map((r,i)=>(
@@ -1082,7 +1082,7 @@ function Novum(){
         {sec==="histoire"&&(
           <div style={{padding:"18px"}}>
             {[
-              {y:"1932",t:"Fondation",v:"Inauguré en 1932 sous le nom de Theatre Saint-Michel, le bâtiment Art Déco était destiné aux grandes productions lyriques de la capitale belge."},
+              {y:"1932",t:"Fondation",v:"Inaugure en 1932 sous le nom de Théâtre Saint-Michel, le bâtiment Art Déco était destiné aux grandes productions lyriques de la capitale belge."},
               {y:"100 ans",t:"Un siecle de spectacles",v:"Pendant près d'un siècle, le Théâtre Saint-Michel a traversé les grandes transformations culturelles de Bruxelles, préservant toujours son âme Art Déco."},
               {y:"Aujourd'hui",t:"NOVUM",v:"Rebaptisé NOVUM, le lieu accueille aujourd'hui théâtre, musique, expositions et événements. Ce soir, il accueille le Marché Créatif d'eRReurProductions."},
             ].map((r,i)=>(
@@ -1143,7 +1143,7 @@ function Erreur(){
   );
 }
 
-const SYS="Tu es L'Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix éditoriale, precise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Théâtre Art Déco 1932, Rue Père Eudore Devroye 2, 1040 Bruxelles. Chasse aux œufs: 10 œufs speciaux, 3 = prix chez eRReur. Cash uniquement sur place. Réponds TOUJOURS en français, 2-5 phrases.";
+const SYS="Tu es L'Erreur -- la voix editoriale du Marche Creatif organise par eRReurProductions au NOVUM a Bruxelles, le 5 avril 2026. Voix éditoriale, précise, culturelle, chaleureuse. DJS: 15h KHAMMIX (Bouncy Trance), 16h30 KASS L (Tech House), 18h MICROPIA (Deep House), 19h30 REXORDER (DNB), 21h FRKS (Closing). NOVUM: Théâtre Art Déco 1932, Rue Père Eudore Devroye 2, 1040 Bruxelles. Chasse aux œufs : 10 œufs spéciaux, 3 = prix chez eRReur. Cash uniquement sur place. Réponds TOUJOURS en français, 2-5 phrases.";
 
 function AI({visitor}){
   const [msgs,setMsgs]=useState(()=>{
@@ -1162,9 +1162,9 @@ function AI({visitor}){
   },[loading]);
 
   const QK=[
-    {l:"Quel DJ écouter ?",m:"Quel DJ recommandes-tu a ce moment de la journee ?"},
+    {l:"Quel DJ écouter ?",m:"Quel DJ recommandes-tu à ce moment de la journée ?"},
     {l:"Par où commencer ?",m:"Je viens d'arriver. Par où commencer ?"},
-    {l:"Indice pour les œufs ?",m:"Un indice pour trouvér les œufs speciaux ?"},
+    {l:"Indice pour les œufs ?",m:"Un indice pour trouver les œufs spéciaux ?"},
     {l:"Le NOVUM ?",m:"Dis-moi quelque chose sur le NOVUM."},
     {l:"eRReur Productions ?",m:"Parle-moi d'eRReurProductions et de Rita Rodrigues."},
     {l:"Paiement ?",m:"Est-ce qu'on peut payer par carte sur place ?"},
@@ -1201,7 +1201,7 @@ function AI({visitor}){
         <div style={{position:"relative",zIndex:1,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
           <div>
             <div style={{...D,fontSize:24,color:C.blanc,lineHeight:1}}>L'ERREUR</div>
-            <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>Voix éditoriale - eRReurProductions</div>
+            <div style={{...M,fontSize:9,color:"rgba(245,242,237,0.65)",letterSpacing:"0.1em",marginTop:1}}>Voix éditoriale · eRReurProductions</div>
           </div>
           <div style={{width:34,height:34,background:C.gradB,display:"flex",alignItems:"center",justifyContent:"center",color:C.blanc,...D,fontSize:20}}>*</div>
         </div>

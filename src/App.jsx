@@ -253,8 +253,7 @@ function Splash({done,onEnter}){
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
   const isAndroid=/android/i.test(navigator.userAgent.toLowerCase());
   const isMobile=isIOS||isAndroid;
-  const debugInfo=`iOS:${isIOS} Android:${isAndroid} Mobile:${isMobile} Show:${showInstall}`;
-  return(
+    return(
     <div style={{flex:1,display:"flex",flexDirection:"column",background:C.beige,position:"relative",overflow:"hidden"}}>
       <Grid op={0.07}/>
       <div style={{position:"absolute",top:-100,left:-100,width:380,height:380,background:C.gradB,borderRadius:"50%",filter:"blur(90px)",opacity:0.5,zIndex:0}}/>
@@ -281,7 +280,6 @@ function Splash({done,onEnter}){
           <div style={{display:"flex",gap:8,marginBottom:24}}>
             {["5 EUR","10 EUR","15 EUR"].map(p=><div key={p} style={{...D,fontSize:20,color:C.noir,background:"rgba(10,10,10,0.08)",padding:"4px 12px"}}>{p}</div>)}
           </div>
-          <div style={{background:"red",color:"white",fontSize:16,padding:"10px",marginBottom:8,wordBreak:"break-all"}}>{debugInfo}</div>
           <button onClick={onEnter} style={{width:"100%",background:C.noir,color:C.beige,...D,fontSize:30,border:"none",padding:"18px 24px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
             <span>ENTRER</span><Arr size={28} color={C.beige}/>
           </button>
@@ -289,18 +287,18 @@ function Splash({done,onEnter}){
         </div>
       </div>
       {showInstall&&isMobile&&(
-        <div style={{position:"absolute",bottom:0,left:0,right:0,background:C.noir,padding:"14px 18px",zIndex:10,display:"flex",gap:12,alignItems:"flex-start"}}>
-          <div style={{flex:1}}>
-            <div style={{...M,fontSize:10,color:C.blanc,fontWeight:700,letterSpacing:"0.08em",marginBottom:5}}>
-              {isIOS?"Ajouter au menu principal":"Installer sur ton telephone"}
-            </div>
-            <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.65)",lineHeight:1.5}}>
-              {isIOS?"Touche l'icone de partage puis \"Sur l'ecran d'accueil\"":"Touche les 3 points puis \"Ajouter a l'ecran d'accueil\""}
-            </div>
-          </div>
-          <button onClick={dismissInstall} style={{background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",flexShrink:0,padding:"0 4px",lineHeight:1}}>X</button>
-        </div>
-      )}
+  <div style={{position:"absolute",bottom:0,left:0,right:0,background:C.noir,padding:"14px 18px",zIndex:10,display:"flex",gap:12,alignItems:"flex-start"}}>
+    <div style={{flex:1}}>
+      <div style={{...M,fontSize:10,color:C.blanc,fontWeight:700,letterSpacing:"0.08em",marginBottom:5}}>
+        {isIOS?"Ajouter au menu principal":"Installer sur ton telephone"}
+      </div>
+      <div style={{...B,fontSize:12,color:"rgba(245,242,237,0.65)",lineHeight:1.5}}>
+        {isIOS?"Touche l'icone de partage puis \"Sur l'ecran d'accueil\"":"Touche les 3 points puis \"Ajouter a l'ecran d'accueil\""}
+      </div>
+    </div>
+    <button onClick={dismissInstall} style={{background:"none",border:"none",color:"rgba(245,242,237,0.45)",fontSize:20,cursor:"pointer",flexShrink:0,padding:"0 4px",lineHeight:1}}>X</button>
+  </div>
+)}
     </div>
   );
 }

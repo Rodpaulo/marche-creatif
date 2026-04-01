@@ -864,9 +864,9 @@ function Eggs({myEggs,eggCount,globalEggs,onFind}){
             <div style={{width:Math.min(100,(eggCount/4)*100)+"%",height:6,background:eggCount>=4?C.orange:C.gradient,transition:"width 0.5s"}}/>
           </div>
           <div style={{display:"flex",gap:6}}>
-            {[0,1,2].map(i=>(
+            {[0,1,2,3].map(i=>(
               <div key={i} style={{width:28,height:28,background:myEggs[i]?C.orange:"rgba(10,10,10,0.06)",border:"1.5px solid "+(myEggs[i]?C.orange:"rgba(10,10,10,0.1)"),display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.3s"}}>
-                {myEggs[i]?"-":""}
+            {myEggs[i]?"🥚":""}
               </div>
             ))}
           </div>

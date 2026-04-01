@@ -91,7 +91,7 @@ export default function App(){
   const [screen,setScreen]=useState("splash");
   const [tab,setTab]=useState("djs");
   const [visitor,setVisitor]=useState(null);
-  const [expos,setExpos]=useState(EXPOS);
+  const [expos,setExpos]=useState(()=>{try{const x=localStorage.getItem("mc2-x");return x?JSON.parse(x):EXPOS;}catch(_){return EXPOS;}});
   const [stamps,setStamps]=useState({});
   const [myEggs,setMyEggs]=useState([]);
   const [globalEggs,setGlobalEggs]=useState(0);
@@ -112,7 +112,6 @@ export default function App(){
       const s=localStorage.getItem("mc2-s");if(s)setStamps(JSON.parse(s));
       const e=localStorage.getItem("mc2-e");if(e)setMyEggs(JSON.parse(e));
       const p=localStorage.getItem("mc2-p");if(p)setPhotos(JSON.parse(p));
-      const x=localStorage.getItem("mc2-x");if(x)setExpos(JSON.parse(x));
     }catch(_){}
     // fetch global egg count from JSONBin
     if(EGGS_BIN){

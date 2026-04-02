@@ -66,7 +66,7 @@ const EXPOS=[
    photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775056657/94Store_x6ae79.jpg"},
   {id:"e8",name:"SACHA VULIC — SEA THE COLORS",type:"Photographie",
    desc:"Depuis plusieurs années, Sacha photographie ce qui l'entoure : des moments, des lieux, des visages. Après cinq ans à explorer la photographie à l'argentique, il franchit aujourd'hui un nouveau cap. Avec Sea the Colors, Sacha expose une série de tirages aux sujets divers et colorés, tous en lien avec la mer et ses rivages. Une invitation au voyage.",
-   color:"#4A6FD4",code:"7777",instagram:"",web:"",
+   color:"#4A6FD4",code:"7777",instagram:"sachavulic",web:"",
    photo:"https://res.cloudinary.com/dtrqdh8xe/image/upload/v1775057442/sacha_cwm7pl.jpg"},
 ];
 

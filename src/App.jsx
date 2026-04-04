@@ -142,36 +142,38 @@ export default function App(){
       
     }catch(_){}
     // fetch global egg count from JSONBin
+   const cleanups=[];
     if(EGGS_BIN){
-  fetchBin(EGGS_BIN).then(d=>{
-    if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
-  });
-  const interval=setInterval(()=>{
-    fetchBin(EGGS_BIN).then(d=>{
-      if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
-    });
-  },15000);
-  return()=>clearInterval(interval);
-}
-    // fetch shared photos from JSONBin and merge with local
-if(PHOTOS_BIN){
-  const fetchPhotos=()=>{
-    fetchBin(PHOTOS_BIN).then(d=>{
-      if(!d?.photos?.length)return;
-      setPhotos(current=>{
-        const localIds=new Set(current.map(p=>String(p.id)));
-        const newPhotos=d.photos.filter(p=>!localIds.has(String(p.id)));
-        if(newPhotos.length===0)return current;
-        const merged=[...current,...newPhotos].sort((a,b)=>a.id-b.id);
-        try{localStorage.setItem("mc2-p",JSON.stringify(merged));}catch(_){}
-        return merged;
+      fetchBin(EGGS_BIN).then(d=>{
+        if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
       });
-    });
-  };
-  fetchPhotos();
-  const interval=setInterval(fetchPhotos,15000);
-  return()=>clearInterval(interval);
-}
+      const i1=setInterval(()=>{
+        fetchBin(EGGS_BIN).then(d=>{
+          if(d?.globalEggs!==undefined)setGlobalEggs(d.globalEggs);
+        });
+      },15000);
+      cleanups.push(()=>clearInterval(i1));
+    }
+    if(PHOTOS_BIN){
+      const fetchPhotos=()=>{
+        fetchBin(PHOTOS_BIN).then(d=>{
+          if(!d?.photos?.length)return;
+          setPhotos(current=>{
+            const localIds=new Set(current.map(p=>String(p.id)));
+            const newPhotos=d.photos.filter(p=>!localIds.has(String(p.id)));
+            if(newPhotos.length===0)return current;
+            const merged=[...current,...newPhotos].sort((a,b)=>a.id-b.id);
+            try{localStorage.setItem("mc2-p",JSON.stringify(merged));}catch(_){}
+            return merged;
+          });
+        });
+      };
+      fetchPhotos();
+      const i2=setInterval(fetchPhotos,15000);
+      cleanups.push(()=>clearInterval(i2));
+    }
+    return()=>cleanups.forEach(c=>c());
+    
     if(EXPOS_BIN){
       console.log("Fetching expos from JSONBin...");
       fetchBin(EXPOS_BIN).then(d=>{

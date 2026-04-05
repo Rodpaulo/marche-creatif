@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 const C = {
   beige:"#E8E2D9", noir:"#0A0A0A", blanc:"#F5F2ED",
@@ -296,6 +297,7 @@ function addPhoto(url,caption){
           <Nav tab={tab} onNav={t=>{setTab(t);setSelDJ(null);setSelExp(null);}} eggCount={eggCount} reactionCount={reactionCount}/>
         </>
       )}
+      <Analytics />
     </div>
   );
 }
